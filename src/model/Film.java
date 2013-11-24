@@ -6,10 +6,10 @@ package model;
  */
 public class Film {
 	private String filmTitle;
-	private double filmX;
-	private double filmY;
+	private float filmX;
+	private float filmY;
 	
-	public Film(String filmTitle, double filmX, double filmY) {
+	public Film(String filmTitle, float filmX, float filmY) {
 		super();
 		this.filmTitle = filmTitle;
 		this.filmX = filmX;
@@ -24,13 +24,13 @@ public class Film {
 	public double getFilmX() {
 		return filmX;
 	}
-	public void setFilmX(double filmX) {
+	public void setFilmX(float filmX) {
 		this.filmX = filmX;
 	}
 	public double getFilmY() {
 		return filmY;
 	}
-	public void setFilmY(double filmY) {
+	public void setFilmY(float filmY) {
 		this.filmY = filmY;
 	}
 	
