@@ -4,6 +4,7 @@
 package controller;
 
 import model.Film;
+import model.MosaicPosition;
 
 /**
  * @author fabienrichard
@@ -11,6 +12,7 @@ import model.Film;
  */
 public class FilmController {
 	public MosaicPosition filmToMosaicPosition(Film film){
-		return mosaicPosition = new MosaicPosition(1,1);
+		MosaicPosition mosaicPosition = new MosaicPosition(1,1);
+		return mosaicPosition;
 	}
 }
