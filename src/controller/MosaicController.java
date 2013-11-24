@@ -18,4 +18,7 @@ public class MosaicController {
 	public void addFilmToMosaic(Film film, MosaicPosition mosaicPosition){
 		
 	}
+	public void writeMosaicOnDisk(Mosaic mosaic){
+		
+	}
 }
