@@ -32,7 +32,7 @@ public class main {
 		System.out.println("Veuillez saisir la hauteur d'une mosaique en pixels :");
 		mosaicHeight = sc.nextInt();
 		
-		//imageController.createImage();
+		//imageController.generateMosaics();
 	}
 
 }
