@@ -11,11 +11,13 @@ import java.util.Set;
  */
 public class Mosaic {
 	private String MosaicName;
-	private class MosaicPosition {
-		int rowNumber;
-		int columnNumber;
-	}
+	private MosaicPosition MosaicPosition;
 	private Set<Film> films;
+	
+	public Mosaic(model.MosaicPosition mosaicPosition) {
+		super();
+		MosaicPosition = mosaicPosition;
+	}
 	public String getMosaicName() {
 		return MosaicName;
 	}
@@ -27,6 +29,12 @@ public class Mosaic {
 	}
 	public void setFilms(Set<Film> films) {
 		this.films = films;
+	}
+	public MosaicPosition getMosaicPosition() {
+		return MosaicPosition;
+	}
+	public void setMosaicPosition(MosaicPosition mosaicPosition) {
+		MosaicPosition = mosaicPosition;
 	}
 	
 }
