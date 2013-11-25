@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Image {
@@ -17,6 +18,11 @@ public class Image {
 		this.numberOfColumns = numberOfColumns;
 		this.mosaicHeight = mosaicHeight;
 		this.mosaicWidth = mosaicWidth;
+		this.mosaics = new HashSet<Mosaic>();
+	}
+	
+	public void addMosaic(Mosaic mosaic){
+		this.mosaics.add(mosaic);
 	}
 
 	public String getImageName() {

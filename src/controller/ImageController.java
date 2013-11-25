@@ -12,6 +12,7 @@ import java.util.Set;
 
 import model.Image;
 import model.Film;
+import model.Mosaic;
 import model.MosaicPosition;
 
 /**
@@ -35,21 +36,31 @@ public class ImageController {
 		image = new Image(numberOfRows, numberOfColumns, mosaicHeight, mosaicWidth);
 		
 		//pour chaque ligne
-		for(int i = 0; i<=numberOfRows;i++){
+		for(int i = 0; i<numberOfRows;i++){
 			//pour chaque colonne
-			for(int j = 0; j<=numberOfColumns; i++){
+			for(int j = 0; j<numberOfColumns; j++){
 				MosaicPosition mosaicPosition = new MosaicPosition(i, j);
 				mosaicController.createMosaic(this.image, mosaicPosition);
 			}
 		}
+
+		System.out.println("fin de create mosaic");
 		
 		Set<Film> filmSet = readLog(logFilePath);
 		
-		Iterator<Film> it = filmSet.iterator();
-		while(it.hasNext()){
-			Film filmCurrent = it.next();
+		System.out.println("fin de lecture log");
+		
+		Iterator<Film> itFilm = filmSet.iterator();
+		while(itFilm.hasNext()){
+			Film filmCurrent = itFilm.next();
 			MosaicPosition mosaicPosition = filmController.filmToMosaicPosition(filmCurrent);
-			mosaicController.addFilmToMosaic(filmCurrent, mosaicPosition);
+			mosaicController.addFilmToMosaic(image, filmCurrent, mosaicPosition);
+		}
+		
+		Iterator<Mosaic> itMosaic = image.getMosaics().iterator();
+		while(itMosaic.hasNext()){
+			Mosaic mosaicCurrent = itMosaic.next();
+			mosaicController.writeMosaicOnDisk(mosaicCurrent, mosaicHeight, mosaicWidth);
 		}
 		
 		return true;

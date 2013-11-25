@@ -22,7 +22,7 @@ public class main {
 		int mosaicWidth;
 		int mosaicHeight;
 		
-		Scanner sc = new Scanner(System.in);
+		/*Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le nombres de lignes :");
 		numberOfRows = sc.nextInt();
 		System.out.println("Veuillez saisir le nombres de colonnes :");
@@ -32,7 +32,9 @@ public class main {
 		System.out.println("Veuillez saisir la hauteur d'une mosaique en pixels :");
 		mosaicHeight = sc.nextInt();
 		
-		imageController.generateMosaics("./files/filmGenerateurRandomXY.txt",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
+		imageController.generateMosaics("./input/filmGenerateurRandomXY.txt",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
+		*/
+		imageController.generateMosaics("./input/filmGenerateurRandomXY.txt",1,1,600,800);
 	}
 
 }
