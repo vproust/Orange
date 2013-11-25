@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,9 +15,15 @@ public class Mosaic {
 	private MosaicPosition MosaicPosition;
 	private Set<Film> films;
 	
+	
+	public void addFilm(Film film){
+		this.getFilms().add(film);
+	}
+	
 	public Mosaic(model.MosaicPosition mosaicPosition) {
 		super();
 		MosaicPosition = mosaicPosition;
+		this.films = new HashSet<Film>();
 	}
 	public String getMosaicName() {
 		return MosaicName;

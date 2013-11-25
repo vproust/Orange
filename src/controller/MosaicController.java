@@ -26,11 +26,12 @@ public class MosaicController {
 	public void createMosaic(Image image, MosaicPosition mosaicPosition){
 		Mosaic mosaic = new Mosaic(mosaicPosition);
 		mosaic.setMosaicName(Integer.toString(mosaicPosition.getRowNumber())+"."+Integer.toString(mosaicPosition.getColumnNumber()));
-		image.getMosaics().add(mosaic);
+		image.addMosaic(mosaic);
 	}
-	public void addFilmToMosaic(Film film, MosaicPosition mosaicPosition){
-		
+	public void addFilmToMosaic(Image image,Film film, MosaicPosition mosaicPosition){
+		image.getMosaics().iterator().next().addFilm(film);
 	}
+	
 	public void writeMosaicOnDisk(Mosaic mosaic,int mosaicHeight,int mosaicWidth){
 		BufferedImage bi = new BufferedImage(mosaicWidth, mosaicHeight, BufferedImage.TYPE_INT_ARGB);
 
