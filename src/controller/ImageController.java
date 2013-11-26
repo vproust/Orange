@@ -53,14 +53,23 @@ public class ImageController {
 		Iterator<Film> itFilm = filmSet.iterator();
 		while(itFilm.hasNext()){
 			Film filmCurrent = itFilm.next();
-			MosaicPosition mosaicPosition = filmController.filmToMosaicPosition(filmCurrent);
+			MosaicPosition mosaicPosition = filmController.filmToMosaicPosition(image,filmCurrent);
 			mosaicController.addFilmToMosaic(image, filmCurrent, mosaicPosition);
 		}
 		
 		Iterator<Mosaic> itMosaic = image.getMosaics().iterator();
 		while(itMosaic.hasNext()){
 			Mosaic mosaicCurrent = itMosaic.next();
-			mosaicController.writeMosaicOnDisk(mosaicCurrent, mosaicHeight, mosaicWidth);
+			mosaicController.writeMosaicOnDisk(image, mosaicCurrent);
+		}
+				
+		//pour chaque ligne
+		for(int i = 0; i<numberOfRows;i++){
+			//pour chaque colonne
+			for(int j = 0; j<numberOfColumns; j++){
+				Mosaic mosaicCurrent = image.getMosaic(i,j);
+				mosaicController.writeMosaicOnDisk(image, mosaicCurrent);
+			}
 		}
 		
 		return true;
@@ -87,6 +96,7 @@ public class ImageController {
 				
 				words = sCurrentLine.split("\t");
 				filmTitle = words[0];
+				//on dŽplace le repere en bas a gauche
 				filmX = Float.parseFloat(words[1]);
 				filmY = Float.parseFloat(words[2]);
 				

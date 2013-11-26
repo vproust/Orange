@@ -6,6 +6,7 @@ import java.util.Set;
 public class Image {
 	private String imageName;
 	private Set<Mosaic> mosaics;
+	private Mosaic[][] mosaicArray;
 	private int numberOfRows;
 	private int numberOfColumns;
 	private int mosaicHeight;
@@ -19,10 +20,20 @@ public class Image {
 		this.mosaicHeight = mosaicHeight;
 		this.mosaicWidth = mosaicWidth;
 		this.mosaics = new HashSet<Mosaic>();
+		this.mosaicArray = new Mosaic[numberOfRows][numberOfColumns];
 	}
 	
 	public void addMosaic(Mosaic mosaic){
-		this.mosaics.add(mosaic);
+		MosaicPosition mosaicPosition = mosaic.getMosaicPosition();
+		this.mosaicArray[mosaicPosition.getRowNumber()][mosaicPosition.getColumnNumber()] = mosaic;
+	}
+
+	public Mosaic[][] getMosaicArray() {
+		return mosaicArray;
+	}
+
+	public void setMosaicArray(Mosaic[][] mosaicArray) {
+		this.mosaicArray = mosaicArray;
 	}
 
 	public String getImageName() {
@@ -71,6 +82,14 @@ public class Image {
 
 	public void setMosaicWidth(int mosaicWidth) {
 		this.mosaicWidth = mosaicWidth;
+	}
+
+	public Mosaic getMosaic(MosaicPosition mosaicPosition) {
+		return this.mosaicArray[mosaicPosition.getRowNumber()][mosaicPosition.getColumnNumber()];
+	}
+
+	public Mosaic getMosaic(int i, int j) {
+		return this.mosaicArray[i][j];
 	}
 	
 }

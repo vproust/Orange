@@ -23,16 +23,23 @@ import model.MosaicPosition;
  *
  */
 public class MosaicController {
+	
 	public void createMosaic(Image image, MosaicPosition mosaicPosition){
 		Mosaic mosaic = new Mosaic(mosaicPosition);
 		mosaic.setMosaicName(Integer.toString(mosaicPosition.getRowNumber())+"."+Integer.toString(mosaicPosition.getColumnNumber()));
 		image.addMosaic(mosaic);
 	}
+	
 	public void addFilmToMosaic(Image image,Film film, MosaicPosition mosaicPosition){
-		image.getMosaics().iterator().next().addFilm(film);
+		//on ajoute le film a la mosaique
+		image.getMosaic(mosaicPosition).addFilm(film);
 	}
 	
-	public void writeMosaicOnDisk(Mosaic mosaic,int mosaicHeight,int mosaicWidth){
+	public void writeMosaicOnDisk(Image image, Mosaic mosaic){
+		
+		int mosaicHeight = image.getMosaicHeight();
+		int mosaicWidth = image.getMosaicWidth();
+		
 		BufferedImage bi = new BufferedImage(mosaicWidth, mosaicHeight, BufferedImage.TYPE_INT_ARGB);
 
 		Graphics2D ig2 = bi.createGraphics(); 

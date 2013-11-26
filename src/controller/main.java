@@ -34,7 +34,7 @@ public class main {
 		
 		imageController.generateMosaics("./input/filmGenerateurRandomXY.txt",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
 		*/
-		imageController.generateMosaics("./input/filmGenerateurRandomXY.txt",1,1,600,800);
+		imageController.generateMosaics("./input/filmGenerateurRandomXY.txt",2,2,600,800);
 	}
 
 }
