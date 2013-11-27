@@ -16,18 +16,17 @@ import model.Mosaic;
 import model.MosaicPosition;
 
 /**
- * @author fabienrichard
- *
- */
-public class ImageController {
-	public Image image;
-	public MosaicController mosaicController;
-	public FilmController filmController;
+* Controller dont la fonction est de générer des mosaiques a partir d'un fichier de log et de paramètres de clipping (nombre de mosaiques, taille en pixels)
+* @author fabienrichard
+* @version 1.0
+* @date 27/11/2013
+*/
+public class GeneratorController {
 	
-	public ImageController() {
+	public Image image;
+	
+	public GeneratorController() {
 		super();
-		mosaicController = new MosaicController();
-		filmController = new FilmController();
 	}
 
 
@@ -40,7 +39,7 @@ public class ImageController {
 			//pour chaque colonne
 			for(int j = 0; j<numberOfColumns; j++){
 				MosaicPosition mosaicPosition = new MosaicPosition(i, j);
-				mosaicController.createMosaic(this.image, mosaicPosition);
+				Mosaic mosaic = new Mosaic(this.image, mosaicPosition);
 			}
 		}
 
@@ -50,25 +49,20 @@ public class ImageController {
 		
 		System.out.println("fin de lecture log");
 		
+		//Pour chaque film
 		Iterator<Film> itFilm = filmSet.iterator();
 		while(itFilm.hasNext()){
 			Film filmCurrent = itFilm.next();
-			MosaicPosition mosaicPosition = filmController.filmToMosaicPosition(image,filmCurrent);
-			mosaicController.addFilmToMosaic(image, filmCurrent, mosaicPosition);
-		}
-		
-		Iterator<Mosaic> itMosaic = image.getMosaics().iterator();
-		while(itMosaic.hasNext()){
-			Mosaic mosaicCurrent = itMosaic.next();
-			mosaicController.writeMosaicOnDisk(image, mosaicCurrent);
+			MosaicPosition mosaicPosition = filmCurrent.filmToMosaicPosition(image);
+			filmCurrent.addFilmToMosaic(image, mosaicPosition);
 		}
 				
-		//pour chaque ligne
+		//pour chaque ligne de la matrice de mosaiques
 		for(int i = 0; i<numberOfRows;i++){
-			//pour chaque colonne
+			//pour chaque colonne  de la matrice de mosaiques
 			for(int j = 0; j<numberOfColumns; j++){
 				Mosaic mosaicCurrent = image.getMosaic(i,j);
-				mosaicController.writeMosaicOnDisk(image, mosaicCurrent);
+				mosaicCurrent.writeMosaicOnDisk(image);
 			}
 		}
 		
