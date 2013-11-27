@@ -12,3 +12,5 @@ git log -p : permet de voir aussi les changements pour chaque log
     ONLINE
 git remote add origin https://github.com/[username]/[repository_name].git : permet de connecter le repertoire local avec le repertoire GitHub (que l'on nomme origin par defaut)
 git push orgini master : permet d'envoyer les commits de master en ligne
+git remote rm origin : permet de supprimer un remote
+git remote -v : permet de voir les remote

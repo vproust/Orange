@@ -16,7 +16,7 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ImageController imageController = new ImageController();
+		GeneratorController generatorController = new GeneratorController();
 		int numberOfRows;
 		int numberOfColumns;
 		int mosaicWidth;
@@ -32,9 +32,9 @@ public class main {
 		System.out.println("Veuillez saisir la hauteur d'une mosaique en pixels :");
 		mosaicHeight = sc.nextInt();
 		
-		imageController.generateMosaics("./input/filmGenerateurRandomXY.txt",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
+		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
 		*/
-		imageController.generateMosaics("./input/filmGenerateurRandomXY.txt",1,1,600,800);
+		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",2,2,600,800);
 	}
 
 }
