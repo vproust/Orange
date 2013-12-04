@@ -24,32 +24,34 @@ import model.MosaicPosition;
 public class GeneratorController {
 	
 	public Image image;
-	
-	public GeneratorController() {
-		super();
-	}
 
-
+	/**
+	 * @param logFilePath : chemin vers le fichier de log
+	 * @param numberOfRows : nombre de mosaiques en ligne
+	 * @param numberOfColumns : nombre de mosaiques en colonne
+	 * @param mosaicHeight : hauteur d'une mosaique en pixels
+	 * @param mosaicWidth : largeur d'une mosaique en pixels
+	 * @return
+	 */
 	public boolean generateMosaics(String logFilePath, int numberOfRows, int numberOfColumns, int mosaicHeight, int mosaicWidth){
 		
 		image = new Image(numberOfRows, numberOfColumns, mosaicHeight, mosaicWidth);
 		
-		//pour chaque ligne
+		//on commence par instancier toutes les mosaiques dont on aura besoin pour l'image
+		//pour chaque ligne de la matrice de mosaiques
 		for(int i = 0; i<numberOfRows;i++){
-			//pour chaque colonne
+			//pour chaque colonne de la matrice de mosaiques
 			for(int j = 0; j<numberOfColumns; j++){
+				//on genere un objet mosaique a la position en cours
 				MosaicPosition mosaicPosition = new MosaicPosition(i, j);
 				Mosaic mosaic = new Mosaic(this.image, mosaicPosition);
 			}
 		}
-
-		System.out.println("fin de create mosaic");
 		
+		//on rempli le set de films a partir du fichier de log
 		Set<Film> filmSet = readLog(logFilePath);
 		
-		System.out.println("fin de lecture log");
-		
-		//Pour chaque film
+		//pour chaque film
 		Iterator<Film> itFilm = filmSet.iterator();
 		while(itFilm.hasNext()){
 			Film filmCurrent = itFilm.next();
