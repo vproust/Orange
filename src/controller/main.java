@@ -12,12 +12,13 @@ import java.util.Scanner;
 public class main {
 
 	/**
-	 * @param args
+	 * Appel principal du programme.
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		GeneratorController generatorController = new GeneratorController();
-		int numberOfRows;
+		
+		int numberOfRows; 
 		int numberOfColumns;
 		int mosaicWidth;
 		int mosaicHeight;
