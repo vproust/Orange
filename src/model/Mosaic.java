@@ -35,7 +35,10 @@ public class Mosaic {
 	public void addFilm(Film film){
 		this.films.add(film);
 	}
-	
+	/*
+	 * Méthode déciture d'une image (ensemble de mosaiques) sur le disque.
+	 * @param image 
+	 */
 	public void writeMosaicOnDisk(Image image){
 		
 		int mosaicHeight = image.getMosaicHeight();
