@@ -12,17 +12,18 @@ import java.util.Scanner;
 public class main {
 
 	/**
-	 * @param args
+	 * Appel principal du programme.
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		GeneratorController generatorController = new GeneratorController();
-		int numberOfRows;
+		
+		int numberOfRows; 
 		int numberOfColumns;
 		int mosaicWidth;
 		int mosaicHeight;
 		
-		/*Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le nombres de lignes :");
 		numberOfRows = sc.nextInt();
 		System.out.println("Veuillez saisir le nombres de colonnes :");
@@ -33,8 +34,6 @@ public class main {
 		mosaicHeight = sc.nextInt();
 		
 		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
-		*/
-		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",2,2,600,800);
 	}
 
 }
