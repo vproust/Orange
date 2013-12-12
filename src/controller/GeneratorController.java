@@ -16,7 +16,7 @@ import model.Mosaic;
 import model.MosaicPosition;
 
 /**
- * Classe Controller qui contier les méthodes de génération des mosaiques a partir d'un fichier de log 
+ * Classe Controller qui contient les méthodes de génération des mosaiques a partir d'un fichier de log 
  * et de param�tres de clipping (nombre de mosaiques, taille en pixels)
  * @author fabienrichard
  * @version 1.0
@@ -47,18 +47,22 @@ public class GeneratorController {
 
 		image = new Image(numberOfRows, numberOfColumns, mosaicHeight, mosaicWidth);
 
+		System.out.println("d�but de create mosaic");
+		
 		//pour chaque ligne
 		for(int i = 0; i<numberOfRows;i++){
 			//pour chaque colonne
 			for(int j = 0; j<numberOfColumns; j++){
 				// On crée les mosaiques en buffer
 				MosaicPosition mosaicPosition = new MosaicPosition(i, j);
-				Mosaic mosaic = new Mosaic(this.image, mosaicPosition);
+				new Mosaic(this.image, mosaicPosition);
 			}
 		}
 
 		System.out.println("fin de create mosaic");
 
+		System.out.println("d�but de lecture log");
+		
 		// Les noms de films sont lus et insérés dans un conteneur
 		Set<Film> filmSet = readLog(logFilePath);
 
@@ -73,6 +77,8 @@ public class GeneratorController {
 			MosaicPosition mosaicPosition = filmCurrent.filmToMosaicPosition(image);
 			filmCurrent.addFilmToMosaic(image, mosaicPosition);
 		}
+		
+		System.out.println("debut d'�criture des mosaics sur le disque");
 
 		//pour chaque ligne de la matrice de mosaiques
 		for(int i = 0; i<numberOfRows;i++){
@@ -83,6 +89,8 @@ public class GeneratorController {
 				mosaicCurrent.writeMosaicOnDisk(image);
 			}
 		}
+		
+		System.out.println("fin d'�criture des mosaics sur le disque");
 
 		return true;
 	}

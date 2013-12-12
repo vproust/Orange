@@ -56,8 +56,6 @@ public class Mosaic {
 			
 			double XPositionOnMosaic = ((filmCurrent.getFilmX()/100)+1)*image.getNumberOfColumns()/2 - Math.floor(((filmCurrent.getFilmX()/100)+1)*image.getNumberOfColumns()/2);
 			double YPositionOnMosaic = ((filmCurrent.getFilmY()/100)+1)*image.getNumberOfRows()/2 - Math.floor(((filmCurrent.getFilmY()/100)+1)*image.getNumberOfRows()/2);;
-			System.out.println((int)Math.floor(XPositionOnMosaic*mosaicWidth));
-			System.out.println((int)Math.floor(YPositionOnMosaic*mosaicHeight));
 			
 			ig2.drawString(message, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight));
 		}
