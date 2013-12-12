@@ -34,6 +34,11 @@ public class main {
 		mosaicHeight = sc.nextInt();
 		
 		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
+<<<<<<< HEAD
+=======
+		
+		//generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",8,8,800,800);
+>>>>>>> b833aef8b0b4e3e2a622462be14d8c3402f3d889
 	}
 
 }
