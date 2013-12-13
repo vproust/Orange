@@ -25,10 +25,10 @@ public class Film {
 		double columnNumber = Math.floor(((this.filmX/100)+1)*numberOfColumns/2);
 		double rowNumber = Math.floor(((this.filmY/100)+1)*numberOfRows/2);
 		
-		MosaicPosition mosaicPosition = new MosaicPosition((int)columnNumber,(int)rowNumber);
+		MosaicPosition mosaicPosition = new MosaicPosition((int)rowNumber,(int)columnNumber);
 		
 		//on affiche la position du film dans la matrice de mosaiques dans la console
-		//System.out.println(mosaicPosition.getColumnNumber()+";"+mosaicPosition.getRowNumber()+"\n");
+		System.out.println(mosaicPosition.getColumnNumber()+";"+mosaicPosition.getRowNumber()+"\n");
 		
 		return mosaicPosition;
 	}
