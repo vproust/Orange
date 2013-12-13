@@ -28,7 +28,7 @@ public class Film {
 		MosaicPosition mosaicPosition = new MosaicPosition((int)rowNumber,(int)columnNumber);
 		
 		//on affiche la position du film dans la matrice de mosaiques dans la console
-		System.out.println(mosaicPosition.getColumnNumber()+";"+mosaicPosition.getRowNumber()+"\n");
+		//System.out.println(mosaicPosition.getColumnNumber()+";"+mosaicPosition.getRowNumber()+"\n");
 		
 		return mosaicPosition;
 	}
