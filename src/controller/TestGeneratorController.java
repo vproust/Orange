@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author fabienrichard
  *
  */
-public class Test {
+public class TestGeneratorController {
 
 	/**
 	 * Appel principal du programme.
@@ -19,7 +19,6 @@ public class Test {
 		GeneratorController generatorController = new GeneratorController();
 		
 		//generatorController.generateMosaics("log",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
-		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",2,3,800,800);
+		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",8,8,1200,1900);
 	}
-
 }
