@@ -19,6 +19,6 @@ public class TestGeneratorController {
 		GeneratorController generatorController = new GeneratorController();
 		
 		//generatorController.generateMosaics("log",numberOfRows,numberOfColumns,mosaicHeight,mosaicWidth);
-		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",8,8,1200,1900);
+		generatorController.generateMosaics("./input/filmGenerateurRandomXY.txt",10,10,1200,1900);
 	}
 }
