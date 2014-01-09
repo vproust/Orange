@@ -24,12 +24,11 @@ public class Mosaic {
 	private MosaicPosition mosaicPosition;
 	private Set<Film> films;
 	
-	public Mosaic(Image image, MosaicPosition mosaicPosition) {
+	public Mosaic( MosaicPosition mosaicPosition) {
 		super();
 		this.films = new HashSet<Film>();
 		this.mosaicPosition = mosaicPosition;
 		this.setMosaicName(Integer.toString(mosaicPosition.getRowNumber())+"."+Integer.toString(mosaicPosition.getColumnNumber()));
-		image.addMosaic(this);
 	}
 	
 	public void addFilm(Film film){

@@ -4,7 +4,6 @@ public class MosaicPosition {
 	int rowNumber;
 	int columnNumber;
 	
-	
 	public MosaicPosition(int rowNumber, int columnNumber) {
 		super();
 		this.rowNumber = rowNumber;
