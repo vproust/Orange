@@ -22,7 +22,7 @@ public class Generator {
 		return true;
 	}
 
-	public BufferedImage recursiveGeneratorLevels(Mosaic mosaic){
+	public BufferedImage recursiveLevelGenerator(Mosaic mosaic){
 
 		if(mosaic.getNumberOfFilms() > 100){
 
@@ -30,11 +30,16 @@ public class Generator {
 			Mosaic mosaicTR = mosaicToSubMosaic().getMosaicTR();//les films de la sous mosaique de “mosaic” en haut à droite;
 			Mosaic mosaicBL = mosaicToSubMosaic().getMosaicBL();//les films de la sous mosaique de “mosaic” en bas à gauche;
 			Mosaic mosaicBR = mosaicToSubMosaic().getMosaicBR();//les films de la sous mosaique de “mosaic” en bas à droite;
-
-			BufferedImage biMosaicTL =  recursiveGeneratorLevels(mosaicTL);
-			BufferedImage biMosaicTR =  recursiveGeneratorLevels(mosaicTR);
-			BufferedImage biMosaicBL =  recursiveGeneratorLevels(mosaicBL);
-			BufferedImage biMosaicBR =  recursiveGeneratorLevels(mosaicBR);
+			
+			mosaicTL.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),0,0));
+			mosaicTR.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),0,1));
+			mosaicBL.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),1,0));
+			mosaicBR.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),1,1));
+			
+			BufferedImage biMosaicTL =  recursiveLevelGenerator(mosaicTL);
+			BufferedImage biMosaicTR =  recursiveLevelGenerator(mosaicTR);
+			BufferedImage biMosaicBL =  recursiveLevelGenerator(mosaicBL);
+			BufferedImage biMosaicBR =  recursiveLevelGenerator(mosaicBR);
 
 			BufferedImage biMosaic = clip(biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			

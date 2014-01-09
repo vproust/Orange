@@ -11,6 +11,12 @@ public class MosaicPosition {
 		this.columnNumber = columnNumber;
 		this.zoomLevel = zoomLevel;
 	}
+	
+	public MosaicPosition(MosaicPosition mosaicPosition, int isBottom, int isLeft){
+		this.rowNumber = mosaicPosition.getRowNumber()*2+isBottom;
+		this.columnNumber = mosaicPosition.getColumnNumber()*2+isLeft;
+		this.zoomLevel = mosaicPosition.getZoomLevel()+1;
+	}
 	public int getRowNumber() {
 		return rowNumber;
 	}
