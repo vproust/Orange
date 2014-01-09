@@ -33,7 +33,7 @@ public class GeneratorLevels {
 			}
 			
 			int numberOfMosaicsGenerated = (int) Math.pow(4, numberOfZoomLevels);
-			
+				
 			System.out.println("mosaics = " +numberOfMosaicsGenerated + " niveaux = " + numberOfZoomLevels);
 			
 			
