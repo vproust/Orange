@@ -3,8 +3,12 @@ package controller;
 import model.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 
 public class Generator {
@@ -19,29 +23,34 @@ public class Generator {
 	public BufferedImage recursiveGeneratorLevels(Mosaic mosaic){
 
 		if(mosaic.getNumberOfFilms() > 100){
-			Mosaic mosaic0.0 = les films de la sous mosaique de “mosaic” en haut à gauche;
-			Mosaic mosaic0.1 = les films de la sous mosaique de “mosaic” en haut à droite;
-			Mosaic mosaic1.0 = les films de la sous mosaique de “mosaic” en bas à gauche;
-			Mosaic mosaic1.1 = les films de la sous mosaique de “mosaic” en bas à droite;
 
-			BufferedImage biMosaic0.0 =  recursiveGeneratorLevels(mosaic0.0);
-			BufferedImage biMosaic0.1 =  recursiveGeneratorLevels(mosaic0.1);
-			BufferedImage biMosaic1.0 =  recursiveGeneratorLevels(mosaic1.0);
-			BufferedImage biMosaic0.1 =  recursiveGeneratorLevels(mosaic1.1);
+			Mosaic mosaicTL = mosaicToSubMosaic().getMosaicTL();//les films de la sous mosaique de “mosaic” en haut à gauche 
+			Mosaic mosaicTR = mosaicToSubMosaic().getMosaicTR();//les films de la sous mosaique de “mosaic” en haut à droite;
+			Mosaic mosaicBL = mosaicToSubMosaic().getMosaicBL();//les films de la sous mosaique de “mosaic” en bas à gauche;
+			Mosaic mosaicBR = mosaicToSubMosaic().getMosaicBR();//les films de la sous mosaique de “mosaic” en bas à droite;
 
-			BufferedImage biMosaic = clip(biMosaic0.0,biMosaic0.1,biMosaic1.0,biMosaic1.1);
-			write(biMosaic);
-			return biMosaic;
+			BufferedImage biMosaicTL =  recursiveGeneratorLevels(mosaicTL);
+			BufferedImage biMosaicTR =  recursiveGeneratorLevels(mosaicTR);
+			BufferedImage biMosaicBL =  recursiveGeneratorLevels(mosaicBL);
+			BufferedImage biMosaicBR =  recursiveGeneratorLevels(mosaicBR);
+
+			BufferedImage biMosaic = clip(biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
+			
+			try {
+				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic"+""+".PNG"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			return biMosaic;
 		}
 
 		else{
 			BufferedImage biMosaic = generateMosaic(mosaic);
-			write(mosaic);
 			return biMosaic;
 		}
 	}
 	// ressemble à film to mosaicPosition
-	Mosaic MosaicToSubMosac(Mosaic mosaic, position){};
+	Image MosaicToSubMosac(Mosaic mosaic){};
 
 	clip(BufferedImage biMosaic0.0, BufferedImage biMosaic0.1, BufferedImage biMosaic1.0, BufferedImage biMosaic1.1){};
 	generateMosaic(Mosaic mosaic){};
