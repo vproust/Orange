@@ -14,9 +14,9 @@ public class Clip {
 
 		Font font = new Font("TimesRoman", Font.BOLD, fontSize);
 		ig2.setFont(font);
-	    ig2.setPaint(Color.red);
+	    ig2.setPaint(Color.orange);
 	    
-		ig2.drawString(message, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight));
+		ig2.drawString("coucou", 50, 50);
 
 	}
 
