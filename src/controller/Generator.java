@@ -1,11 +1,13 @@
 package controller;
 
 import model.*;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -49,8 +51,35 @@ public class Generator {
 			return biMosaic;
 		}
 	}
-	// ressemble à film to mosaicPosition
-	Image MosaicToSubMosac(Mosaic mosaic){};
+	
+	/** cette methode divise une mosaique en 4 sous mosaiques et renvoie un objet MosaicsToBeClipped
+	 * @param mosaic : la mosaique qu'il faut diviser en 4 sous mosaiques
+	 * @return : les mosaiques a assembler
+	 */
+	public MosaicsToBeClipped MosaicToSubMosaic(Mosaic mosaic){
+
+		//MosaicToBeClipped pour la reponse
+		MosaicsToBeClipped mosaicsToBeClipped = new MosaicsToBeClipped();
+		
+		//Pour chaque film
+		Iterator<Film> itFilm = mosaic.getFilms().iterator();
+
+		// Les films sont ensuite inscris dans leur mosaique correspondante
+		while(itFilm.hasNext()){
+			Film filmCurrent = itFilm.next();
+			
+			//on recupere la partie entiere pour avoir la position du film dans la matrice de mosaiques
+			double columnNumber = Math.floor((filmCurrent.getFilmX()/100)+1);
+			double rowNumber = Math.floor((filmCurrent.getFilmY()/100)+1);
+			
+			//on creer une position de mosaique 
+			MosaicPosition mosaicPosition = new MosaicPosition((int)rowNumber, (int) columnNumber, 0);
+			
+			//on ajoute le film a la bonne sous mosaique
+			mosaicsToBeClipped.addFilmToSubMosaic(filmCurrent,mosaicPosition);
+		}
+		return mosaicsToBeClipped;
+	}
 
 	clip(BufferedImage biMosaic0.0, BufferedImage biMosaic0.1, BufferedImage biMosaic1.0, BufferedImage biMosaic1.1){};
 	generateMosaic(Mosaic mosaic){};
