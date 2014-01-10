@@ -23,16 +23,18 @@ public class Mosaic {
 	private String mosaicName;
 	private MosaicPosition mosaicPosition;
 	private Set<Film> films;
+	private int numberOfFilms;
 	
 	public Mosaic( MosaicPosition mosaicPosition) {
 		super();
 		this.films = new HashSet<Film>();
 		this.mosaicPosition = mosaicPosition;
-		this.setMosaicName(Integer.toString(mosaicPosition.getRowNumber())+"."+Integer.toString(mosaicPosition.getColumnNumber()));
+		this.setMosaicName(mosaicPosition.getRowNumber()+"."+mosaicPosition.getColumnNumber()+"."+mosaicPosition.getZoomLevel());
 	}
 	
 	public void addFilm(Film film){
 		this.films.add(film);
+		this.numberOfFilms++;
 	}
 	
 	public void writeMosaicOnDisk(Image image){
@@ -87,6 +89,14 @@ public class Mosaic {
 	}
 	public void setMosaicPosition(MosaicPosition mosaicPosition) {
 		this.mosaicPosition = mosaicPosition;
+	}
+
+	public int getNumberOfFilms() {
+		return numberOfFilms;
+	}
+
+	public void setNumberOfFilms(int numberOfFilms) {
+		this.numberOfFilms = numberOfFilms;
 	}
 	
 }

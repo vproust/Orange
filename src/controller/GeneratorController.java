@@ -54,8 +54,8 @@ public class GeneratorController {
 			//pour chaque colonne
 			for(int j = 0; j<numberOfColumns; j++){
 				// On crée les mosaiques en buffer
-				MosaicPosition mosaicPosition = new MosaicPosition(i, j);
-				new Mosaic(this.image, mosaicPosition);
+				//MosaicPosition mosaicPosition = new MosaicPosition(i, j);
+				//new Mosaic(this.image, mosaicPosition);
 			}
 		}
 

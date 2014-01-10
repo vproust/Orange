@@ -20,6 +20,12 @@ public class Image {
 		this.mosaics = new Mosaic[numberOfRows][numberOfColumns];
 	}
 	
+	public Image(int mosaicHeight, int mosaicWidth) {
+		super();
+		this.mosaicHeight = mosaicHeight;
+		this.mosaicWidth = mosaicWidth;
+	}
+
 	public void addMosaic(Mosaic mosaic){
 		MosaicPosition mosaicPosition = mosaic.getMosaicPosition();
 		this.mosaics[mosaicPosition.getRowNumber()][mosaicPosition.getColumnNumber()] = mosaic;

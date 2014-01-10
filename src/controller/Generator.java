@@ -19,30 +19,32 @@ import javax.imageio.ImageIO;
 public class Generator {
 
 	public boolean generateLevels(String logFilePath){
+		
+		Image image = new Image(1200, 1900);
 
 		Mosaic mosaic = new Mosaic(new MosaicPosition(0,0,0));
-		recursiveGeneratorLevels(mosaic);
+		recursiveLevelGenerator(image, mosaic);
 		return true;
 	}
 
-	public BufferedImage recursiveLevelGenerator(Mosaic mosaic){
+	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
 
 		if(mosaic.getNumberOfFilms() > 100){
 
-			Mosaic mosaicTL = mosaicToSubMosaic().getMosaicTL();//les films de la sous mosaique de “mosaic” en haut à gauche 
-			Mosaic mosaicTR = mosaicToSubMosaic().getMosaicTR();//les films de la sous mosaique de “mosaic” en haut à droite;
-			Mosaic mosaicBL = mosaicToSubMosaic().getMosaicBL();//les films de la sous mosaique de “mosaic” en bas à gauche;
-			Mosaic mosaicBR = mosaicToSubMosaic().getMosaicBR();//les films de la sous mosaique de “mosaic” en bas à droite;
+			Mosaic mosaicTL = mosaicToSubMosaic(mosaic).getMosaicTL();//les films de la sous mosaique de “mosaic” en haut à gauche 
+			Mosaic mosaicTR = mosaicToSubMosaic(mosaic).getMosaicTR();//les films de la sous mosaique de “mosaic” en haut à droite;
+			Mosaic mosaicBL = mosaicToSubMosaic(mosaic).getMosaicBL();//les films de la sous mosaique de “mosaic” en bas à gauche;
+			Mosaic mosaicBR = mosaicToSubMosaic(mosaic).getMosaicBR();//les films de la sous mosaique de “mosaic” en bas à droite;
 			
 			mosaicTL.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),0,0));
 			mosaicTR.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),0,1));
 			mosaicBL.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),1,0));
 			mosaicBR.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),1,1));
 			
-			BufferedImage biMosaicTL =  recursiveLevelGenerator(mosaicTL);
-			BufferedImage biMosaicTR =  recursiveLevelGenerator(mosaicTR);
-			BufferedImage biMosaicBL =  recursiveLevelGenerator(mosaicBL);
-			BufferedImage biMosaicBR =  recursiveLevelGenerator(mosaicBR);
+			BufferedImage biMosaicTL =  recursiveLevelGenerator(image, mosaicTL);
+			BufferedImage biMosaicTR =  recursiveLevelGenerator(image, mosaicTR);
+			BufferedImage biMosaicBL =  recursiveLevelGenerator(image, mosaicBL);
+			BufferedImage biMosaicBR =  recursiveLevelGenerator(image, mosaicBR);
 
 			BufferedImage biMosaic = clip(biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			
@@ -55,7 +57,7 @@ public class Generator {
 		}
 
 		else{
-			BufferedImage biMosaic = generateMosaic(mosaic);
+			BufferedImage biMosaic = generateMosaicImage(image, mosaic);
 			return biMosaic;
 		}
 	}
@@ -64,7 +66,7 @@ public class Generator {
 	 * @param mosaic : la mosaique qu'il faut diviser en 4 sous mosaiques
 	 * @return : les mosaiques a assembler
 	 */
-	public MosaicsToBeClipped MosaicToSubMosaic(Mosaic mosaic){
+	public MosaicsToBeClipped mosaicToSubMosaic(Mosaic mosaic){
 
 		//MosaicToBeClipped pour la reponse
 		MosaicsToBeClipped mosaicsToBeClipped = new MosaicsToBeClipped();
@@ -93,7 +95,7 @@ public class Generator {
 	 * @param image : pour les parametres de taille; mosaic : la mosaique qu'il faut ecrire sur le disque
 	 * @return : le bufferImage
 	 */
-	public BufferedImage writeMosaicOnDisk(Image image, Mosaic mosaic){
+	public BufferedImage generateMosaicImage(Image image, Mosaic mosaic){
 
 		int mosaicHeight = image.getMosaicHeight();
 		int mosaicWidth = image.getMosaicWidth();
@@ -101,19 +103,20 @@ public class Generator {
 		BufferedImage bi = new BufferedImage(mosaicWidth, mosaicHeight, BufferedImage.TYPE_INT_ARGB);
 
 		Graphics2D ig2 = bi.createGraphics(); 
-		int fontSize =20; //Taille de police défini en dur, a modifier ensuite..
-
+		
+		int fontSize =20; //Taille de police défini en dur, a modifier ensuite.
 		Font font = new Font("TimesRoman", Font.BOLD, fontSize);
 		ig2.setFont(font);
-		ig2.setPaint(Color.pink);
+		ig2.setPaint(Color.red);
+		
 		Iterator<Film> it = mosaic.getFilms().iterator();
 		
 		while(it.hasNext()){
 			Film filmCurrent = it.next();
 			String message = filmCurrent.getFilmTitle();
 
-			double XPositionOnMosaic = ((filmCurrent.getFilmX()/100)+1)*image.getNumberOfColumns()/2 - Math.floor(((filmCurrent.getFilmX()/100)+1)*image.getNumberOfColumns()/2);
-			double YPositionOnMosaic = ((filmCurrent.getFilmY()/100)+1)*image.getNumberOfRows()/2 - Math.floor(((filmCurrent.getFilmY()/100)+1)*image.getNumberOfRows()/2);;
+			double XPositionOnMosaic = ((filmCurrent.getFilmX()/100)+1) - Math.floor(((filmCurrent.getFilmX()/100)+1));
+			double YPositionOnMosaic = ((filmCurrent.getFilmY()/100)+1) - Math.floor(((filmCurrent.getFilmY()/100)+1));
 
 			ig2.drawString(message, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight));
 		}
@@ -127,8 +130,10 @@ public class Generator {
 		return bi;
 	}
 
-	clip(BufferedImage biMosaic0.0, BufferedImage biMosaic0.1, BufferedImage biMosaic1.0, BufferedImage biMosaic1.1){};
-	generateMosaic(Mosaic mosaic){};
+	public BufferedImage clip(BufferedImage biMosaicTL, BufferedImage biMosaicTR, BufferedImage biMosaicBL, BufferedImage biMosaicBR){
+		
+		return null;
+	};
 
 	/**
 	 * Cette mŽthode lis fichier texte contenant les noms de films et leur position et les ajoute dans une unique mosaique.
@@ -137,7 +142,7 @@ public class Generator {
 	 * 
 	 * @return filmSet Le conteneur des objets "film"
 	 **/
-	public boolean logFileToMosaic(String logFilePath){
+	public Mosaic logFileToMosaic(String logFilePath){
 
 		Mosaic mosaic = new Mosaic(new MosaicPosition(0,0,0));
 
@@ -168,7 +173,6 @@ public class Generator {
 		} catch (IOException e) {
 			System.err.format("Exception occurred trying to read '%s'.", logFilePath);
 			e.printStackTrace();
-			return false;
 		} finally {
 			try {
 				if (br != null)br.close();
@@ -177,7 +181,7 @@ public class Generator {
 			}
 		}
 
-		return true;
+		return mosaic;
 	}
 
 }
