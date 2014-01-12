@@ -8,6 +8,7 @@ public class TestGenerator {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		/**
 		Image image = new Image(1200, 1900);
 		
 		Generator generator = new Generator();
@@ -18,6 +19,10 @@ public class TestGenerator {
 		generator.generateMosaicImage(image, mosaicToSubMosaic.getMosaicTR());
 		generator.generateMosaicImage(image, mosaicToSubMosaic.getMosaicBL());
 		generator.generateMosaicImage(image, mosaicToSubMosaic.getMosaicBR());
+		**/
+		
+		Generator generator = new Generator();
+		generator.generateLevels("./input/filmGenerateurRandomXY.txt");
 	}
 
 }
