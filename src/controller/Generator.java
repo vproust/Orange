@@ -5,6 +5,7 @@ import model.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,7 +47,7 @@ public class Generator {
 			BufferedImage biMosaicBL =  recursiveLevelGenerator(image, mosaicBL);
 			BufferedImage biMosaicBR =  recursiveLevelGenerator(image, mosaicBR);
 
-			BufferedImage biMosaic = clip(biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
+			BufferedImage biMosaic = clip(image, biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			
 			try {
 				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic"+""+".PNG"));
@@ -130,9 +131,28 @@ public class Generator {
 		return bi;
 	}
 
-	public BufferedImage clip(BufferedImage biMosaicTL, BufferedImage biMosaicTR, BufferedImage biMosaicBL, BufferedImage biMosaicBR){
+	public BufferedImage clip(Image image,BufferedImage biMosaicTL, BufferedImage biMosaicTR, BufferedImage biMosaicBL, BufferedImage biMosaicBR){
+		BufferedImage bi = new BufferedImage(image.getMosaicWidth(), image.getMosaicHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D ig2 = bi.createGraphics();
 		
-		return null;
+		// insertion de l'image en haut à gauche
+		java.awt.Image imageTL = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
+		ig2.drawImage(imageTL,0,0,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
+		
+		// insertion de l'image en haut à droite
+		java.awt.Image imageTR = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
+		ig2.drawImage(imageTR,image.getMosaicWidth()/2,0,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
+		
+		// insertion de l'image en bas à gauche
+		java.awt.Image imageBL = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
+		ig2.drawImage(imageBL,0,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
+
+		
+		// insertion de l'image en bas à droite
+		java.awt.Image imageBR = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
+		ig2.drawImage(imageBR,image.getMosaicWidth()/2,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
+		
+		return bi;
 	};
 
 	/**
