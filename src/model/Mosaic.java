@@ -22,14 +22,16 @@ import javax.imageio.ImageIO;
 public class Mosaic {
 	private String mosaicName;
 	private MosaicPosition mosaicPosition;
+	private MosaicClipPosition mosaicClipPosition;
 	private Set<Film> films;
 	private int numberOfFilms;
 	
-	public Mosaic( MosaicPosition mosaicPosition) {
+	public Mosaic(MosaicPosition mosaicPosition, MosaicClipPosition mosaicClipPosition) {
 		super();
 		this.films = new HashSet<Film>();
 		this.mosaicPosition = mosaicPosition;
-		this.setMosaicName(mosaicPosition.getRowNumber()+"."+mosaicPosition.getColumnNumber()+"."+mosaicPosition.getZoomLevel());
+		this.mosaicClipPosition = mosaicClipPosition;
+		this.setMosaicName(mosaicPosition.getZoomLevel()+"."+mosaicPosition.getRowNumber()+"."+mosaicPosition.getColumnNumber());
 	}
 	
 	public void addFilm(Film film){
@@ -45,7 +47,7 @@ public class Mosaic {
 		BufferedImage bi = new BufferedImage(mosaicWidth, mosaicHeight, BufferedImage.TYPE_INT_ARGB);
 
 		Graphics2D ig2 = bi.createGraphics(); 
-		int fontSize =20; //Taille de police défini en dur, a modifier ensuite..
+		int fontSize =20; //Taille de police dï¿½fini en dur, a modifier ensuite..
 
 		Font font = new Font("TimesRoman", Font.BOLD, fontSize);
 		ig2.setFont(font);
@@ -62,7 +64,8 @@ public class Mosaic {
 		}
 
 		try {
-			ImageIO.write(bi, "PNG", new File("./output/mosaic"+this.getMosaicName()+".PNG"));
+			ImageIO.write(bi, "PNG", new File("./output/Poopmosaic"+this.getMosaicName()+".PNG"));
+			System.out.println(this.getMosaicName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,6 +100,14 @@ public class Mosaic {
 
 	public void setNumberOfFilms(int numberOfFilms) {
 		this.numberOfFilms = numberOfFilms;
+	}
+
+	public MosaicClipPosition getMosaicClipPosition() {
+		return mosaicClipPosition;
+	}
+
+	public void setMosaicClipPosition(MosaicClipPosition mosaicClipPosition) {
+		this.mosaicClipPosition = mosaicClipPosition;
 	}
 	
 }
