@@ -19,9 +19,8 @@ import javax.imageio.ImageIO;
 
 public class Generator {
 
-	public boolean generateLevels(String logFilePath){
+	public boolean generateLevels(String logFilePath, Image image){
 
-		Image image = new Image(1200, 1900);
 		Mosaic mosaic = logFileToMosaic(logFilePath);
 		recursiveLevelGenerator(image, mosaic);
 		return true;
@@ -56,7 +55,8 @@ public class Generator {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}			return biMosaic;
+			}			
+			return biMosaic;
 		}
 
 		else{
@@ -169,26 +169,30 @@ public class Generator {
 	}
 
 	public BufferedImage clip(Image image,BufferedImage biMosaicTL, BufferedImage biMosaicTR, BufferedImage biMosaicBL, BufferedImage biMosaicBR){
+		
 		BufferedImage bi = new BufferedImage(image.getMosaicWidth(), image.getMosaicHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D ig2 = bi.createGraphics();
 
 		// insertion de l'image en haut à gauche
 		java.awt.Image imageTL = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
 		ig2.drawImage(imageTL,0,0,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
+		biMosaicTL=null;
 
 		// insertion de l'image en haut à droite
-		java.awt.Image imageTR = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
+		java.awt.Image imageTR = Toolkit.getDefaultToolkit().createImage(biMosaicTR.getSource());
 		ig2.drawImage(imageTR,image.getMosaicWidth()/2,0,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
-
+		biMosaicTR=null;
+		
 		// insertion de l'image en bas à gauche
-		java.awt.Image imageBL = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
+		java.awt.Image imageBL = Toolkit.getDefaultToolkit().createImage(biMosaicBL.getSource());
 		ig2.drawImage(imageBL,0,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
-
+		biMosaicBL=null;
 
 		// insertion de l'image en bas à droite
-		java.awt.Image imageBR = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
+		java.awt.Image imageBR = Toolkit.getDefaultToolkit().createImage(biMosaicBR.getSource());
 		ig2.drawImage(imageBR,image.getMosaicWidth()/2,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
-
+		biMosaicBR=null;
+		
 		return bi;
 	};
 
