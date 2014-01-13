@@ -12,6 +12,7 @@ public class MosaicPosition {
 		this.zoomLevel = zoomLevel;
 	}
 	
+	//genere une mosaic poisition a partir de la mosaique mère (incrementation du zoom et de la position)
 	public MosaicPosition(MosaicPosition mosaicPosition, int isBottom, int isLeft){
 		this.rowNumber = mosaicPosition.getRowNumber()*2+isBottom;
 		this.columnNumber = mosaicPosition.getColumnNumber()*2+isLeft;
