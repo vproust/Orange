@@ -76,7 +76,7 @@ public class Mosaic {
 		this.mosaicName = mosaicName;
 	}
 	public void setMosaicName() {
-		this.mosaicName = this.getMosaicPosition().getRowNumber()+"."+this.getMosaicPosition().getColumnNumber()+"."+this.getMosaicPosition().getZoomLevel();
+		this.mosaicName = this.getMosaicPosition().getZoomLevel()+"."+this.getMosaicPosition().getRowNumber()+"."+this.getMosaicPosition().getColumnNumber();
 	}
 	public Set<Film> getFilms() {
 		return films;

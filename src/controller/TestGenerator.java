@@ -22,7 +22,7 @@ public class TestGenerator {
 		**/
 		
 		Generator generator = new Generator();
-		generator.generateLevels("./input/filmGenerateurRandomXY.txt");
+  		generator.generateLevels("./input/filmGenerateurRandomXY.txt");
 	}
 
 }
