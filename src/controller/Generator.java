@@ -28,7 +28,7 @@ public class Generator {
 	}
 
 	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
-		System.out.println("récursion"+mosaic.getMosaicPosition().getZoomLevel());
+		//System.out.println("récursion"+mosaic.getMosaicPosition().getZoomLevel());
 
 		if(mosaic.getNumberOfFilms() > 1000){
 
@@ -51,7 +51,8 @@ public class Generator {
 
 			BufferedImage biMosaic = clip(image, biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			try {
-				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic"+mosaic.getMosaicPosition().getZoomLevel()+"."+mosaic.getMosaicPosition().getColumnNumber()+"."+mosaic.getMosaicPosition().getRowNumber()+".PNG"));
+				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic"+mosaic.getMosaicName()+".PNG"));
+				System.out.println("clip : "+mosaic.getMosaicName());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -71,7 +72,7 @@ public class Generator {
 	public MosaicsToBeClipped mosaicToSubMosaic(Mosaic mosaic){
 
 		//MosaicToBeClipped pour la reponse
-		MosaicsToBeClipped mosaicsToBeClipped = new MosaicsToBeClipped();
+		MosaicsToBeClipped mosaicsToBeClipped = new MosaicsToBeClipped(mosaic.getMosaicPosition());
 
 		//Pour chaque film
 		Iterator<Film> itFilm = mosaic.getFilms().iterator();
@@ -114,10 +115,10 @@ public class Generator {
 			//System.out.println(mosaic.getMosaicPosition().getZoomLevel()+" -> "+columnNumber+" et "+rowNumber+" "+filmCurrent.getFilmTitle()+": "+filmCurrent.getFilmX()+'/'+filmCurrent.getFilmY()+" a="+a+";b="+b);
 
 			//on creer une position de mosaique 
-			MosaicPosition mosaicPosition = new MosaicPosition((int)rowNumber, (int) columnNumber, 0);
+			MosaicClipPosition mosaicClipPosition = new MosaicClipPosition((int)rowNumber, (int) columnNumber);
 
 			//on ajoute le film a la bonne sous mosaique
-			mosaicsToBeClipped.addFilmToSubMosaic(filmCurrent,mosaicPosition);
+			mosaicsToBeClipped.addFilmToSubMosaic(filmCurrent,mosaicClipPosition);
 		}
 		return mosaicsToBeClipped;
 	}
@@ -151,12 +152,15 @@ public class Generator {
 			
 			double XPositionOnMosaic = filmCurrent.getFilmX()/2;
 			double YPositionOnMosaic = filmCurrent.getFilmY()/2;
-			System.out.println("X="+XPositionOnMosaic+"Y="+YPositionOnMosaic);
+			
+			//System.out.println("X="+XPositionOnMosaic+"Y="+YPositionOnMosaic);
+			
 			ig2.drawString(message, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight));
 		}
 
 		try {
 			ImageIO.write(bi, "PNG", new File("./output/mosaic"+mosaic.getMosaicName()+".PNG"));
+			System.out.println("feuille : "+mosaic.getMosaicName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -197,7 +201,7 @@ public class Generator {
 	 **/
 	public Mosaic logFileToMosaic(String logFilePath){
 
-		Mosaic mosaic = new Mosaic(new MosaicPosition(0,0,0));
+		Mosaic mosaic = new Mosaic(new MosaicPosition(0,0,0), new MosaicClipPosition(0,0));
 
 		BufferedReader br = null;
 
