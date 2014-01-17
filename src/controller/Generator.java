@@ -30,7 +30,7 @@ public class Generator {
 	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
 		//System.out.println("récursion"+mosaic.getMosaicPosition().getZoomLevel());
 
-		if(mosaic.getNumberOfFilms() > 1000){
+		if(mosaic.getNumberOfFilms() > 3){
 
 			MosaicsToBeClipped mosaicsToBeClipped = mosaicToSubMosaic(mosaic);
 
