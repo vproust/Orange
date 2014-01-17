@@ -21,7 +21,7 @@ public class TestGenerator {
 		generator.generateMosaicImage(image, mosaicToSubMosaic.getMosaicBR());
 		**/
 		
-		Image image = new Image(1200, 1900);
+		Image image = new Image(800, 1200);
 		
 		Generator generator = new Generator();
   		generator.generateLevels("./input/filmGenerateurRandomXY.txt",image);
