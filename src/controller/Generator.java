@@ -30,7 +30,7 @@ public class Generator {
 
 	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
 
-		if(mosaic.getNumberOfFilms() > 50){
+		if(mosaic.getNumberOfFilms() > 100){
 
 			MosaicsToBeClipped mosaicsToBeClipped = mosaicToSubMosaic(mosaic);
 
@@ -51,7 +51,8 @@ public class Generator {
 
 			BufferedImage biMosaic = clip(image, biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			try {
-				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic"+mosaic.getMosaicName()+".PNG"));
+				new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
+				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
 				System.out.println("clip : "+mosaic.getMosaicName());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -137,15 +138,16 @@ public class Generator {
 		Graphics2D ig2 = bi.createGraphics(); 
 		Graphics2D ig2WithTitles = biWithTitles.createGraphics(); 
 
-		int fontSize = 20; //Taille de police défini en dur, a modifier ensuite.
+		int fontSize = mosaicHeight/20; //Taille de police dŽfinie par rapport a la hauteur de l'image
 		Font font = new Font("TimesRoman", Font.BOLD, fontSize);
+		
 		ig2.setFont(font);
 		ig2.setPaint(Color.red);
 
 		ig2WithTitles.setFont(font);
 		ig2WithTitles.setPaint(Color.red);
 
-		int radius = 3;
+		int radius = fontSize/4;
 
 		Iterator<Film> it = mosaic.getFilms().iterator();
 
@@ -171,7 +173,8 @@ public class Generator {
 		}
 
 		try {
-			ImageIO.write(biWithTitles, "PNG", new File("./output/mosaic"+mosaic.getMosaicName()+".PNG"));
+			new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
+			ImageIO.write(biWithTitles, "PNG", new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
 			System.out.println("feuille : "+mosaic.getMosaicName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
