@@ -24,7 +24,7 @@ public class Clip {
 		ig2.setFont(font);
 	    ig2.setPaint(Color.orange);
 	    
-		ig2.drawString("coucou", 50, 50);
+		ig2.drawString("coucou", 2, 2);
 		ig2.translate(20, 20);
 		ig2.drawString("kikou", 50, 50);
 		ig2.translate(20, 20);
@@ -34,6 +34,7 @@ public class Clip {
 		ig22.drawImage(image,100,0,100,100,null);
 		ig22.drawImage(image,0,100,100,100,null);
 		ig22.drawImage(image,100,100,100,100,null);
+		
 		try {
 			ImageIO.write(bi2, "PNG", new File("./output/clip.PNG"));
 		} catch (IOException e) {
