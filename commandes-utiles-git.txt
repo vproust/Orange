@@ -14,3 +14,8 @@ git remote add origin https://github.com/[username]/[repository_name].git : perm
 git push orgini master : permet d'envoyer les commits de master en ligne
 git remote rm origin : permet de supprimer un remote
 git remote -v : permet de voir les remote
+
+    UNIV-NANTES
+Se logger au réseau univ-nantes
+Dans le terminal exporter le proxy https : export https_proxy="https://cache.wifi.univ-nantes.fr:3128"
+Utiliser le repertoire https://github.com/...
