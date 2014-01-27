@@ -7,11 +7,11 @@ import model.Film;
 
 public class ClosestNeighboor {
 	// Attention au cas où le set de film ne contient que lui même.
-	Film closestNeighboor(Set<Film> films,Film film){
+	public Film closestNeighboor(Set<Film> films,Film film){
 		
 		films.remove(film);
 		Iterator<Film> it = films.iterator();
-		double distanceMin = 0;
+		double distanceMin = Double.MAX_VALUE;
 		
 		//Pourquoi avoir besoin de l'initialiser ?
 		Film closestNeighboorFilm = new Film("film",0,0);
