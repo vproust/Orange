@@ -9,6 +9,10 @@ public class Film {
 	private float filmX;
 	private float filmY;
 	
+	public Film(){
+		super();
+	}
+	
 	public Film(String filmTitle, float filmX, float filmY) {
 		super();
 		this.filmTitle = filmTitle;

@@ -14,7 +14,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Clip {
-	public static int ARR_SIZE = 20;
+	public static int ARR_SIZE = 10;
 	
 	 static void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
         Graphics2D g = (Graphics2D) g1.create();
