@@ -29,7 +29,6 @@ public class Generator {
 	}
 
 	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
-		//System.out.println("rÈcursion"+mosaic.getMosaicPosition().getZoomLevel());
 
 		if(mosaic.getNumberOfFilms() > 3){
 
@@ -52,7 +51,8 @@ public class Generator {
 
 			BufferedImage biMosaic = clip(image, biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			try {
-				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic"+mosaic.getMosaicName()+".PNG"));
+				new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
+				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
 				System.out.println("clip : "+mosaic.getMosaicName());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -86,9 +86,9 @@ public class Generator {
 			//on recupere la partie entiere pour avoir la position du film dans la matrice de mosaiques
 			double columnNumber = Math.floor(filmCurrent.getFilmX());
 			double rowNumber = Math.floor(filmCurrent.getFilmY());
-			
+
 			//selon que le film soit TL,TR,BL ou BR, on le recentre pour que le niveau de zoom inferieur recupere une mosaique avec des films repartis entre 0 et 2
-			
+
 			//variables pour le calcul de la position :
 			int a = 0, b = 0;
 
@@ -133,33 +133,48 @@ public class Generator {
 		int mosaicWidth = image.getMosaicWidth();
 
 		BufferedImage bi = new BufferedImage(mosaicWidth, mosaicHeight, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage biWithTitles = new BufferedImage(mosaicWidth, mosaicHeight, BufferedImage.TYPE_INT_ARGB);
 
 		Graphics2D ig2 = bi.createGraphics(); 
+		Graphics2D ig2WithTitles = biWithTitles.createGraphics(); 
 
-		int fontSize = 40; //Taille de police dÈfini en dur, a modifier ensuite.
+		int fontSize = mosaicHeight/20; //Taille de police définie par rapport a la hauteur de l'image
 		Font font = new Font("TimesRoman", Font.BOLD, fontSize);
+		
 		ig2.setFont(font);
 		ig2.setPaint(Color.red);
-		int radius = 3;
+
+		ig2WithTitles.setFont(font);
+		ig2WithTitles.setPaint(Color.red);
+
+		int radius = fontSize/4;
 
 		Iterator<Film> it = mosaic.getFilms().iterator();
 
 		while(it.hasNext()){
 			Film filmCurrent = it.next();
-			String message = filmCurrent.getFilmTitle();
-			
+
+			String filmTitle = filmCurrent.getFilmTitle();
+
 			double XPositionOnMosaic = filmCurrent.getFilmX()/2;
 			double YPositionOnMosaic = filmCurrent.getFilmY()/2;
-			
+
 			Shape circle = new Ellipse2D.Double((int)Math.floor(XPositionOnMosaic*mosaicWidth) - radius, (int)Math.floor(YPositionOnMosaic*mosaicHeight) - radius, 2.0 * radius, 2.0 * radius);
 			ig2.fill(circle);
 			ig2.draw(circle);
-						
-			ig2.drawString(message, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight)+40);
+
+			ig2WithTitles.fill(circle);
+			ig2WithTitles.draw(circle);
+
+			if(filmTitle=="Pulp Fiction (1994)"){
+				System.out.println(mosaic.getMosaicPosition().getZoomLevel()+":"+mosaic.getMosaicPosition().getRowNumber()+":"+mosaic.getMosaicPosition().getColumnNumber());
+			}
+			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight)+fontSize);
 		}
 
 		try {
-			ImageIO.write(bi, "PNG", new File("./output/mosaic"+mosaic.getMosaicName()+".PNG"));
+			new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
+			ImageIO.write(biWithTitles, "PNG", new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
 			System.out.println("feuille : "+mosaic.getMosaicName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -169,7 +184,7 @@ public class Generator {
 	}
 
 	public BufferedImage clip(Image image,BufferedImage biMosaicTL, BufferedImage biMosaicTR, BufferedImage biMosaicBL, BufferedImage biMosaicBR){
-		
+
 		BufferedImage bi = new BufferedImage(image.getMosaicWidth(), image.getMosaicHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D ig2 = bi.createGraphics();
 
@@ -182,7 +197,7 @@ public class Generator {
 		java.awt.Image imageTR = Toolkit.getDefaultToolkit().createImage(biMosaicTR.getSource());
 		ig2.drawImage(imageTR,image.getMosaicWidth()/2,0,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
 		biMosaicTR=null;
-		
+
 		// insertion de l'image en bas ‡ gauche
 		java.awt.Image imageBL = Toolkit.getDefaultToolkit().createImage(biMosaicBL.getSource());
 		ig2.drawImage(imageBL,0,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
@@ -192,7 +207,7 @@ public class Generator {
 		java.awt.Image imageBR = Toolkit.getDefaultToolkit().createImage(biMosaicBR.getSource());
 		ig2.drawImage(imageBR,image.getMosaicWidth()/2,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
 		biMosaicBR=null;
-		
+
 		return bi;
 	};
 
@@ -213,7 +228,7 @@ public class Generator {
 
 			//variables pour la ligne courante
 			String sCurrentLine;
-			String[] words;
+			String[] words, coords;
 			String filmTitle;
 			float filmX, filmY;
 
@@ -221,11 +236,14 @@ public class Generator {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
-				words = sCurrentLine.split("\t");
+				words = sCurrentLine.split(";");
 				filmTitle = words[0];
+
+				coords = words[1].split(",");
+
 				//on déplace le repere en bas a gauche. les coordonnees deviennent comprises entre 0 et 2
-				filmX = Float.parseFloat(words[1])/100+1;
-				filmY = Float.parseFloat(words[2])/100+1;
+				filmX = Float.parseFloat(coords[0])+1;
+				filmY = Float.parseFloat(coords[1])+1;
 
 				Film film = new Film(filmTitle,filmX,filmY);
 				mosaic.addFilm(film);
