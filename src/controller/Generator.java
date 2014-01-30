@@ -147,7 +147,7 @@ public class Generator {
 		ig2WithTitles.setFont(font);
 		ig2WithTitles.setPaint(Color.red);
 
-		int radius = fontSize/4;
+		int radius = fontSize/8;
 
 		Iterator<Film> it = mosaic.getFilms().iterator();
 
