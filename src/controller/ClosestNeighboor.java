@@ -7,7 +7,7 @@ import model.Film;
 
 public class ClosestNeighboor {
 	// Attention au cas où le set de film ne contient que lui même.
-	public Film closestNeighboor(Set<Film> films,Film film){
+	public static Film closestNeighboor(Set<Film> films,Film film){
 		
 		films.remove(film);
 		if(films.isEmpty()){
