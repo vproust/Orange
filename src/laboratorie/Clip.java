@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import javax.imageio.ImageIO;
 public class Clip {
 	public static int ARR_SIZE = 10;
 	
-	 static void drawArrow(Graphics2D g, int x1, int y1, int x2, int y2) {
+	 static void drawArrow(Graphics2D g, int x1, int y1, int x2, int y2) throws NoninvertibleTransformException {
 
 
         double dx = x2 - x1, dy = y2 - y1;
@@ -30,8 +31,11 @@ public class Clip {
         g.drawLine(0, 0, len, 0);
         g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
                       new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+        AffineTransform at2= at.createInverse();
+        g.transform(at2);
+        
     }
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NoninvertibleTransformException {
 		BufferedImage bi = new BufferedImage(250, 250, BufferedImage.TYPE_INT_ARGB);
 
 		Graphics2D ig2 = bi.createGraphics(); 
@@ -42,14 +46,16 @@ public class Clip {
 		ig2.setFont(font);
 	    ig2.setPaint(Color.orange);
 	    
-		ig2.drawString("coucou", 100, 30);
-		ig2.drawString("kikou", 30, 100);
+		ig2.drawString("coucou", 30, 30);
+		ig2.drawString("coucou2", 50, 50);
+		ig2.drawString("kikou2", 100, 100);
+		
 		
 		// draw Line2D.Double
 		//ig2.draw(new Line2D.Double(2, 2, 50, 50));
 		
-		drawArrow(ig2,100,30,30,100);
-		
+		drawArrow(ig2,30,30,100,100);
+		ig2.drawString("kikou2", 100, 100);
 		try {
 			ImageIO.write(bi, "PNG", new File("./output/clip.PNG"));
 		} catch (IOException e) {
