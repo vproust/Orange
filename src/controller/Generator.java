@@ -32,7 +32,7 @@ public class Generator {
 
 	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
 
-		if(mosaic.getNumberOfFilms() > 3){
+		if(mosaic.getNumberOfFilms() > 100){
 
 			MosaicsToBeClipped mosaicsToBeClipped = mosaicToSubMosaic(mosaic);
 
@@ -161,10 +161,10 @@ public class Generator {
 			
 			String filmTitle = filmCurrent.getFilmTitle();
 
-			double XPositionOnMosaic = filmCurrent.getFilmX()/2;
-			double YPositionOnMosaic = filmCurrent.getFilmY()/2;
+			double XPositionFilmOnMosaic = filmCurrent.getFilmX()/2;
+			double YPositionFilmOnMosaic = filmCurrent.getFilmY()/2;
 
-			Shape circle = new Ellipse2D.Double((int)Math.floor(XPositionOnMosaic*mosaicWidth) - radius, (int)Math.floor(YPositionOnMosaic*mosaicHeight) - radius, 2.0 * radius, 2.0 * radius);
+			Shape circle = new Ellipse2D.Double((int)Math.floor(XPositionFilmOnMosaic*mosaicWidth) - radius, (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight) - radius, 2.0 * radius, 2.0 * radius);
 			ig2.fill(circle);
 			ig2.draw(circle);
 
@@ -172,10 +172,13 @@ public class Generator {
 			ig2WithTitles.draw(circle);
 			
 			if(closestFilm != null){
-				Draw.drawArrow(ig2WithTitles, XPositionOnMosaic, YPositionOnMosaic, closestFilm.getFilmX(), closestFilm.getFilmY());
+				double XPositionClosestFilmOnMosaic = closestFilm.getFilmX()/2;
+				double YPositionClosestFilmOnMosaic = closestFilm.getFilmY()/2;
+				
+				Draw.drawArrow(ig2WithTitles, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight), (int)Math.floor(XPositionClosestFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionClosestFilmOnMosaic*mosaicHeight));
 			}
 			
-			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight)+fontSize);
+			//ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight)+fontSize);
 		}
 
 		try {
@@ -242,14 +245,22 @@ public class Generator {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
-				words = sCurrentLine.split(";");
+				//pour randomXY.txt
+				words = sCurrentLine.split("\t");
+				filmX = Float.parseFloat(words[1])/100+1;
+				filmY = Float.parseFloat(words[2])/100+1;
+				
+				//pour movieLens
+				//words = sCurrentLine.split(";");
+				
 				filmTitle = words[0];
 
-				coords = words[1].split(",");
+				//coords = words[1].split(",");
 
 				//on déplace le repere en bas a gauche. les coordonnees deviennent comprises entre 0 et 2
-				filmX = Float.parseFloat(coords[0])+1;
-				filmY = Float.parseFloat(coords[1])+1;
+				//pour movieLens
+				//filmX = Float.parseFloat(coords[0])+1;
+				//filmY = Float.parseFloat(coords[1])+1;
 
 				Film film = new Film(filmTitle,filmX,filmY);
 				mosaic.addFilm(film);

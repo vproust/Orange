@@ -16,8 +16,8 @@ import javax.imageio.ImageIO;
 public class Clip {
 	public static int ARR_SIZE = 10;
 	
-	 static void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
-        Graphics2D g = (Graphics2D) g1.create();
+	 static void drawArrow(Graphics2D g, int x1, int y1, int x2, int y2) {
+
 
         double dx = x2 - x1, dy = y2 - y1;
         double angle = Math.atan2(dy, dx);

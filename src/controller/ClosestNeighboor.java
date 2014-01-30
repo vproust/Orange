@@ -17,8 +17,7 @@ public class ClosestNeighboor {
 		
 		Iterator<Film> it = films.iterator();
 		double distanceMin = Double.MAX_VALUE;
-		
-		//Pourquoi avoir besoin de l'initialiser ?
+
 		Film closestNeighboorFilm = new Film();
 		
 		while(it.hasNext()){
