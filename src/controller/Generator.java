@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -155,7 +156,8 @@ public class Generator {
 		while(it.hasNext()){
 			Film filmCurrent = it.next();
 			
-			Film closestFilm = ClosestNeighboor.closestNeighboor(mosaic.getFilms(),filmCurrent);
+			Set<Film> setFilmsLocal = new HashSet<Film>(mosaic.getFilms());
+			Film closestFilm = ClosestNeighboor.closestNeighboor(setFilmsLocal,filmCurrent);
 			
 			String filmTitle = filmCurrent.getFilmTitle();
 
@@ -169,7 +171,9 @@ public class Generator {
 			ig2WithTitles.fill(circle);
 			ig2WithTitles.draw(circle);
 			
-			//Draw.drawArrow(ig2WithTitles, XPositionOnMosaic, YPositionOnMosaic, closestFilm.getFilmX(), closestFilm.getFilmY());
+			if(closestFilm != null){
+				Draw.drawArrow(ig2WithTitles, XPositionOnMosaic, YPositionOnMosaic, closestFilm.getFilmX(), closestFilm.getFilmY());
+			}
 			
 			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight)+fontSize);
 		}

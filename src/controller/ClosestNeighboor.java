@@ -8,11 +8,13 @@ import model.Film;
 public class ClosestNeighboor {
 	// Attention au cas où le set de film ne contient que lui même.
 	public static Film closestNeighboor(Set<Film> films,Film film){
-		
+	
 		films.remove(film);
+		
 		if(films.isEmpty()){
 			return null;
 		}
+		
 		Iterator<Film> it = films.iterator();
 		double distanceMin = Double.MAX_VALUE;
 		
