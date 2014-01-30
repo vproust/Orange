@@ -4,6 +4,7 @@ import model.*;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.Toolkit;
@@ -145,7 +146,7 @@ public class Generator {
 		ig2.setPaint(Color.red);
 
 		ig2WithTitles.setFont(font);
-		ig2WithTitles.setPaint(Color.red);
+		ig2WithTitles.setPaint(Color.black);
 
 		int radius = fontSize/8;
 
@@ -153,7 +154,9 @@ public class Generator {
 
 		while(it.hasNext()){
 			Film filmCurrent = it.next();
-
+			
+			Film closestFilm = ClosestNeighboor.closestNeighboor(mosaic.getFilms(),filmCurrent);
+			
 			String filmTitle = filmCurrent.getFilmTitle();
 
 			double XPositionOnMosaic = filmCurrent.getFilmX()/2;
@@ -165,10 +168,9 @@ public class Generator {
 
 			ig2WithTitles.fill(circle);
 			ig2WithTitles.draw(circle);
-
-			if(filmTitle=="Pulp Fiction (1994)"){
-				System.out.println(mosaic.getMosaicPosition().getZoomLevel()+":"+mosaic.getMosaicPosition().getRowNumber()+":"+mosaic.getMosaicPosition().getColumnNumber());
-			}
+			
+			//Draw.drawArrow(ig2WithTitles, XPositionOnMosaic, YPositionOnMosaic, closestFilm.getFilmX(), closestFilm.getFilmY());
+			
 			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionOnMosaic*mosaicWidth), (int)Math.floor(YPositionOnMosaic*mosaicHeight)+fontSize);
 		}
 
