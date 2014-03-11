@@ -32,7 +32,7 @@ public class Generator {
 
 	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
 
-		if(mosaic.getNumberOfFilms() > 100){
+		if(mosaic.getNumberOfFilms() > 50){
 
 			MosaicsToBeClipped mosaicsToBeClipped = mosaicToSubMosaic(mosaic);
 
@@ -147,7 +147,7 @@ public class Generator {
 		ig2.setPaint(Color.red);
 
 		ig2WithTitles.setFont(font);
-		ig2WithTitles.setPaint(Color.black);
+		ig2WithTitles.setPaint(Color.red);
 
 		int radius = fontSize/8;
 
@@ -156,6 +156,7 @@ public class Generator {
 		while(it.hasNext()){
 			Film filmCurrent = it.next();
 			
+			//on recherche son plus proche voisin
 			Set<Film> setFilmsLocal = new HashSet<Film>(mosaic.getFilms());
 			Film closestFilm = ClosestNeighboor.closestNeighboor(setFilmsLocal,filmCurrent);
 			
@@ -163,11 +164,13 @@ public class Generator {
 
 			double XPositionFilmOnMosaic = filmCurrent.getFilmX()/2;
 			double YPositionFilmOnMosaic = filmCurrent.getFilmY()/2;
-
+			
+			//on dessine les points
 			Shape circle = new Ellipse2D.Double((int)Math.floor(XPositionFilmOnMosaic*mosaicWidth) - radius, (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight) - radius, 2.0 * radius, 2.0 * radius);
 			ig2.fill(circle);
 			ig2.draw(circle);
-
+			
+			//on dessine le point sur la mosaïque qui contient les titres
 			ig2WithTitles.fill(circle);
 			ig2WithTitles.draw(circle);
 			
@@ -175,9 +178,13 @@ public class Generator {
 				double XPositionClosestFilmOnMosaic = closestFilm.getFilmX()/2;
 				double YPositionClosestFilmOnMosaic = closestFilm.getFilmY()/2;
 				
+				//on dessine les fleches en noir
+				ig2WithTitles.setPaint(Color.black);
 				Draw.drawArrow(ig2WithTitles, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight), (int)Math.floor(XPositionClosestFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionClosestFilmOnMosaic*mosaicHeight));
 			}
 			
+			//on ecrit les titres en rouge
+			ig2WithTitles.setPaint(Color.red);
 			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight)+fontSize);
 		}
 
@@ -246,21 +253,21 @@ public class Generator {
 			while ((sCurrentLine = br.readLine()) != null) {
 
 				//pour randomXY.txt
-				words = sCurrentLine.split("\t");
-				filmX = Float.parseFloat(words[1])/100+1;
-				filmY = Float.parseFloat(words[2])/100+1;
+				//words = sCurrentLine.split("\t");
+				//filmX = Float.parseFloat(words[1])/100+1;
+				//filmY = Float.parseFloat(words[2])/100+1;
 				
 				//pour movieLens
-				//words = sCurrentLine.split(";");
+				words = sCurrentLine.split(";");
 				
 				filmTitle = words[0];
 
-				//coords = words[1].split(",");
+				coords = words[1].split(",");
 
 				//on déplace le repere en bas a gauche. les coordonnees deviennent comprises entre 0 et 2
 				//pour movieLens
-				//filmX = Float.parseFloat(coords[0])+1;
-				//filmY = Float.parseFloat(coords[1])+1;
+				filmX = Float.parseFloat(coords[0])+1;
+				filmY = Float.parseFloat(coords[1])+1;
 
 				Film film = new Film(filmTitle,filmX,filmY);
 				mosaic.addFilm(film);

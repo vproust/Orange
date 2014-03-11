@@ -21,7 +21,7 @@ public class Draw {
        g.drawLine(0, 0, len, 0);
        
        //pour dessiner la pointe de la fleche
-       //g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+       g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
        AffineTransform at2;
 	try {
 		at2 = at.createInverse();
