@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 
 public class Draw {
-	public static int ARR_SIZE = 10;
+	public static int ARR_SIZE = 5;
 	
 	public static void drawArrow(Graphics2D g, double x1, double y1, double x2, double y2) {
 

@@ -140,16 +140,16 @@ public class Generator {
 		Graphics2D ig2 = bi.createGraphics(); 
 		Graphics2D ig2WithTitles = biWithTitles.createGraphics(); 
 
-		int fontSize = mosaicHeight/20; //Taille de police définie par rapport a la hauteur de l'image
+		int fontSize = mosaicHeight/40; //Taille de police définie par rapport a la hauteur de l'image
 		Font font = new Font("TimesRoman", Font.BOLD, fontSize);
 		
 		ig2.setFont(font);
-		ig2.setPaint(Color.red);
+		ig2.setPaint(Color.black);
 
 		ig2WithTitles.setFont(font);
-		ig2WithTitles.setPaint(Color.red);
+		ig2WithTitles.setPaint(Color.black);
 
-		int radius = fontSize/8;
+		int radius = fontSize/5;
 
 		Iterator<Film> it = mosaic.getFilms().iterator();
 
@@ -183,8 +183,8 @@ public class Generator {
 				Draw.drawArrow(ig2WithTitles, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight), (int)Math.floor(XPositionClosestFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionClosestFilmOnMosaic*mosaicHeight));
 			}
 			
-			//on ecrit les titres en rouge
-			ig2WithTitles.setPaint(Color.red);
+			//on ecrit les titres en noir
+			ig2WithTitles.setPaint(Color.black);
 			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight)+fontSize);
 		}
 
