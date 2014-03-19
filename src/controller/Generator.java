@@ -191,7 +191,7 @@ public class Generator {
 		try {
 			new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
 			ImageIO.write(biWithTitles, "PNG", new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
-			System.out.println("feuille : "+mosaic.getMosaicName());
+			System.out.println("leaf : "+mosaic.getMosaicName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
