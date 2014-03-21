@@ -26,8 +26,9 @@ public class TestGenerator {
 		Image image = new Image(600, 1200);
 		
 		Generator generator = new Generator();
-		//generator.generateLevels("./input/filmGenerateurRandomXY.txt",image);
-  		generator.generateLevels("./input/MovieLens2factors.txt",image);
+//		generator.generateLevels("./input/filmGenerateurRandomXY.txt",image);
+//  	generator.generateLevels("./input/MovieLens2factors.txt",image);
+		generator.generateLevels("./input/imdb_factorsColumns2.txt",image);
   		
   		//on arrete le timer
   		long endTime   = System.currentTimeMillis();
