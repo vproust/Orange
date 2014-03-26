@@ -27,33 +27,16 @@ public class LogFile {
 
 			//variables pour la ligne courante
 			String sCurrentLine;
-			String[] words, coords;
-			String filmTitle;
-			float filmX, filmY;
 
 			br = new BufferedReader(new FileReader(logFilePath));
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
-				//pour randomXY.txt
-				//words = sCurrentLine.split("\t");
-				//filmX = Float.parseFloat(words[1])/100+1;
-				//filmY = Float.parseFloat(words[2])/100+1;
-				
-				//pour movieLens
-				words = sCurrentLine.split(";");
-				
-				filmTitle = words[0];
-
-				coords = words[1].split(",");
-
-				//on déplace le repere en bas a gauche. les coordonnees deviennent comprises entre 0 et 2
-				//pour movieLens
-				filmX = Float.parseFloat(coords[0])+1;
-				filmY = Float.parseFloat(coords[1])+1;
-
-				Film film = new Film(filmTitle,filmX,filmY);
+				//Film film = logFileLineToFilmRandomXY(sCurrentLine);
+				//Film film = logFileLineToFilmMovieLens(sCurrentLine);
+				Film film = logFileLineToFilmImdb(sCurrentLine);
 				mosaic.addFilm(film);
+
 			}
 
 		} catch (IOException e) {
@@ -68,6 +51,60 @@ public class LogFile {
 		}
 
 		return mosaic;
+	}
+
+	public Film logFileLineToFilmMovieLens(String line){
+
+		String[] words, coords;
+		String filmTitle;
+		float filmX, filmY;
+
+		words = line.split(";");
+
+		filmTitle = words[0];
+
+		coords = words[1].split(",");
+
+		filmX = Float.parseFloat(coords[0])+1;
+		filmY = Float.parseFloat(coords[1])+1;
+
+		Film film = new Film(filmTitle,filmX,filmY);
+
+		return film;
+	}
+
+	public Film logFileLineToFilmRandomXY(String line){
+
+		String[] words;
+		String filmTitle;
+		float filmX, filmY;
+
+		words = line.split("\t");
+
+		filmTitle = words[0];
+		filmX = Float.parseFloat(words[1])/100+1;
+		filmY = Float.parseFloat(words[2])/100+1;
+
+		Film film = new Film(filmTitle,filmX,filmY);
+
+		return film;
+	}
+
+	public Film logFileLineToFilmImdb(String line){
+
+		String[] words;
+		String filmTitle;
+		float filmX, filmY;
+
+		words = line.split(";");
+
+		filmTitle = words[0];
+		filmX = Float.parseFloat(words[1])+1;
+		filmY = Float.parseFloat(words[2])+1;
+
+		Film film = new Film(filmTitle,filmX,filmY);
+
+		return film;
 	}
 
 }
