@@ -95,18 +95,18 @@ public class Generator {
 			int a = 0, b = 0;
 
 			if(rowNumber==0){
-				//TL a et b = 0
-				//TR a = -1;
+				//BL a et b = 0
+				//BR a = -1;
 				if(columnNumber==1){
 					a = -1;
 				}
 			}
 			else if(rowNumber==1){
-				//BL
+				//TL
 				if(columnNumber==0){
 					b = -1;
 				}
-				//BR
+				//TR
 				if(columnNumber==1){
 					a = -1;
 					b = -1;
@@ -163,7 +163,7 @@ public class Generator {
 			String filmTitle = filmCurrent.getFilmTitle();
 
 			double XPositionFilmOnMosaic = filmCurrent.getFilmX()/2;
-			double YPositionFilmOnMosaic = filmCurrent.getFilmY()/2;
+			double YPositionFilmOnMosaic = 1- filmCurrent.getFilmY()/2;
 			
 			//on dessine les points
 			Shape circle = new Ellipse2D.Double((int)Math.floor(XPositionFilmOnMosaic*mosaicWidth) - radius, (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight) - radius, 2.0 * radius, 2.0 * radius);
@@ -176,7 +176,7 @@ public class Generator {
 			
 			if(closestFilm != null){
 				double XPositionClosestFilmOnMosaic = closestFilm.getFilmX()/2;
-				double YPositionClosestFilmOnMosaic = closestFilm.getFilmY()/2;
+				double YPositionClosestFilmOnMosaic = 1-closestFilm.getFilmY()/2;
 				
 				//on dessine les fleches en noir
 				ig2WithTitles.setPaint(Color.black);

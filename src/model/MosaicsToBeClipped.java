@@ -15,10 +15,10 @@ public class MosaicsToBeClipped {
 	private Mosaic mosaicBR;
 	
 	public MosaicsToBeClipped(MosaicPosition mosaicMerePosition){
-		this.mosaicTL = new Mosaic(new MosaicPosition(mosaicMerePosition,0,0), new MosaicClipPosition(0,0));
-		this.mosaicTR = new Mosaic(new MosaicPosition(mosaicMerePosition,0,1), new MosaicClipPosition(0,1));
-		this.mosaicBL = new Mosaic(new MosaicPosition(mosaicMerePosition,1,0), new MosaicClipPosition(1,0));
-		this.mosaicBR = new Mosaic(new MosaicPosition(mosaicMerePosition,1,1), new MosaicClipPosition(1,1));
+		this.mosaicBL = new Mosaic(new MosaicPosition(mosaicMerePosition,0,0), new MosaicClipPosition(0,0));
+		this.mosaicBR = new Mosaic(new MosaicPosition(mosaicMerePosition,0,1), new MosaicClipPosition(0,1));
+		this.mosaicTL = new Mosaic(new MosaicPosition(mosaicMerePosition,1,0), new MosaicClipPosition(1,0));
+		this.mosaicTR = new Mosaic(new MosaicPosition(mosaicMerePosition,1,1), new MosaicClipPosition(1,1));
 	}
 	
 	public Mosaic getMosaicTL() {
@@ -49,16 +49,16 @@ public class MosaicsToBeClipped {
 	public void addFilmToSubMosaic(Film filmCurrent, MosaicClipPosition mosaicClipPosition) {
 		
 		if(mosaicClipPosition.getRowNumber()==0 && mosaicClipPosition.getColumnNumber()==0){
-			this.mosaicTL.addFilm(filmCurrent);
-		}
-		else if(mosaicClipPosition.getRowNumber()==0 && mosaicClipPosition.getColumnNumber()==1){
-			this.mosaicTR.addFilm(filmCurrent);
-		}
-		else if(mosaicClipPosition.getRowNumber()==1 && mosaicClipPosition.getColumnNumber()==0){
 			this.mosaicBL.addFilm(filmCurrent);
 		}
-		else if(mosaicClipPosition.getRowNumber()==1 && mosaicClipPosition.getColumnNumber()==1){
+		else if(mosaicClipPosition.getRowNumber()==0 && mosaicClipPosition.getColumnNumber()==1){
 			this.mosaicBR.addFilm(filmCurrent);
+		}
+		else if(mosaicClipPosition.getRowNumber()==1 && mosaicClipPosition.getColumnNumber()==0){
+			this.mosaicTL.addFilm(filmCurrent);
+		}
+		else if(mosaicClipPosition.getRowNumber()==1 && mosaicClipPosition.getColumnNumber()==1){
+			this.mosaicTR.addFilm(filmCurrent);
 		}
 		
 	}
