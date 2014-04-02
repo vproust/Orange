@@ -11,9 +11,9 @@ import model.MosaicPosition;
 
 public class LogFile {
 	/**
-	 * Cette mŽthode lis fichier texte contenant les noms de films et leur position et les ajoute dans une unique mosaique.
+	 * Cette mï¿½thode lis fichier texte contenant les noms de films et leur position et les ajoute dans une unique mosaique.
 	 * 
-	 * @param logFilePath Le chemin vers le rŽpertoire du fichier contenant les noms de films.
+	 * @param logFilePath Le chemin vers le rï¿½pertoire du fichier contenant les noms de films.
 	 * 
 	 * @return filmSet Le conteneur des objets "film"
 	 **/
