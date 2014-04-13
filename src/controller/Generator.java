@@ -185,7 +185,13 @@ public class Generator {
 			
 			//on ecrit les titres en noir
 			ig2WithTitles.setPaint(Color.black);
-			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight)+fontSize);
+			
+			// Si le nom du film est écrit dans le dernier quart droit de l'image, alors on l'écrit en bas à gauche du point.
+			int back =0;
+			if(ig2.getFontMetrics().stringWidth(filmTitle)>mosaicWidth-Math.floor(XPositionFilmOnMosaic*mosaicWidth)){
+				back = ig2.getFontMetrics().stringWidth(filmTitle);
+			}
+			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth - back), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight)+fontSize);
 		}
 
 		try {
