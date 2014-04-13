@@ -31,7 +31,7 @@ public class main {
 		
 		Image image = new Image(mosaicHeight, mosaicWidth);
 		
-		generator.generateLevels("./input/filmGenerateurRandomXY.txt",image);
+		generator.generateLevels("./input/imdb_factorsColumns2.txt",image);
 	}
 
 }
