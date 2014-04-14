@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>IMAGE LOG</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./viz.js"></script>
-  </head>
-  <body>
-    <div id="image">
-    
-    	<button id="zoom_out_button" onclick="zoom_out()">Zoom Out</button>
-    	<button id="reset_button" onclick="reset()">Reset</button>
-	    
-	    <div id="TL" onclick="zoom_in(this)"></div>
-	    <div id="TR" onclick="zoom_in(this)"></div>
-	    <div id="BL" onclick="zoom_in(this)"></div>
-	    <div id="BR" onclick="zoom_in(this)"></div>
-	    
-    </div>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <title>IMAGE LOG</title>
+        <link rel="stylesheet" href="./style.css" />
+        <script src="./jquery-1.11.0.min.js"></script>
+    </head>
+    <body>
+        <div id="image">
+            
+            <button id="zoom_out_button" onclick="zoom_out()">Zoom Out</button>
+            <button id="reset_button" onclick="reset()">Reset</button>
+                
+            <div class="image_navigator" id="TL" onclick="zoom_in(this)"></div>
+            <div class="image_navigator" id="TR" onclick="zoom_in(this)"></div>
+            <div class="image_navigator" id="BL" onclick="zoom_in(this)"></div>
+            <div class="image_navigator" id="BR" onclick="zoom_in(this)"></div>
+                
+        </div>
+        <div id="navigator_window">
+            <div id="navigator">
+            </div>
+        </div>
+        <div id="mosaic_info">
+            <p>Mosaic information :</p>
+            <p>Row <span id="info_row"></span> | Column <span id="info_column"></span> | Zoom level <span id="info_zoom"></span></p>
+        </div>
+        <script src="./viz.js"></script>
+    </body>
 </html>

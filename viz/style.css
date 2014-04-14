@@ -1,31 +1,55 @@
+body{
+    font-family: arial;
+}
+
 #image{
-	width: 100%;
-	height: 600px;
-	background-image: url('../output/mosaic/0/0/0.png');
-	background-repeat: no-repeat;
+    width: 100%;
+    height: 600px;
+    background-image: url('../output/mosaic/0/0/0.png');
+    background-repeat: no-repeat;
 }
 
-#TL,#TR,#BL,#BR{
-	width: 49.5%;
-	height: 49.5%;
-	display: inline-block;
+.image_navigator{
+    width: 49.5%;
+    height: 49.5%;
+    display: inline-block;
 }
 
-#TL:hover,#TR:hover,#BL:hover,#BR:hover{
-	opacity:0.1;
-	background-color: black;
+.image_navigator:hover{
+    opacity:0.1;
+    background-color: black;
 }
 
 #zoom_out_button{
-	position: absolute;
-	top:10px;
-	left: 10px;
-	z-index: 10;
+    position: absolute;
+    top:10px;
+    left: 10px;
+    z-index: 10;
 }
 
 #reset_button{
-	position: absolute;
-	top:10px;
-	left: 80px;
-	z-index: 10;
+    position: absolute;
+    top:10px;
+    left: 80px;
+    z-index: 10;
+}
+
+#navigator_window{
+    position: absolute;
+    bottom: 10px;
+    background-color: grey;
+    opacity: 0.5;
+    height: 100px;
+    width: 200px;
+    z-index: 20;
+}
+
+#navigator{
+    background-color: black;
+}
+
+#mosaic_info{
+    position: absolute;
+    bottom: 10px;
+    left: 210px;
 }
