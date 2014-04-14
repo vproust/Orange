@@ -36,10 +36,10 @@ public class Generator {
 
 			MosaicsToBeClipped mosaicsToBeClipped = mosaicToSubMosaic(mosaic);
 
-			Mosaic mosaicTL = mosaicsToBeClipped.getMosaicTL();//les films de la sous mosaique de “mosaic” en haut à gauche 
-			Mosaic mosaicTR = mosaicsToBeClipped.getMosaicTR();//les films de la sous mosaique de “mosaic” en haut à droite;
-			Mosaic mosaicBL = mosaicsToBeClipped.getMosaicBL();//les films de la sous mosaique de “mosaic” en bas à gauche;
-			Mosaic mosaicBR = mosaicsToBeClipped.getMosaicBR();//les films de la sous mosaique de “mosaic” en bas à droite;
+			Mosaic mosaicTL = mosaicsToBeClipped.getMosaicTL();//les films de la sous mosaique de ï¿½mosaicï¿½ en haut ï¿½ gauche 
+			Mosaic mosaicTR = mosaicsToBeClipped.getMosaicTR();//les films de la sous mosaique de ï¿½mosaicï¿½ en haut ï¿½ droite;
+			Mosaic mosaicBL = mosaicsToBeClipped.getMosaicBL();//les films de la sous mosaique de ï¿½mosaicï¿½ en bas ï¿½ gauche;
+			Mosaic mosaicBR = mosaicsToBeClipped.getMosaicBR();//les films de la sous mosaique de ï¿½mosaicï¿½ en bas ï¿½ droite;
 
 			mosaicTL.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),0,0));
 			mosaicTR.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),0,1));
@@ -140,7 +140,7 @@ public class Generator {
 		Graphics2D ig2 = bi.createGraphics(); 
 		Graphics2D ig2WithTitles = biWithTitles.createGraphics(); 
 
-		int fontSize = mosaicHeight/40; //Taille de police dŽfinie par rapport a la hauteur de l'image
+		int fontSize = mosaicHeight/40; //Taille de police dï¿½finie par rapport a la hauteur de l'image
 		Font font = new Font("TimesRoman", Font.BOLD, fontSize);
 		
 		ig2.setFont(font);
@@ -170,7 +170,7 @@ public class Generator {
 			ig2.fill(circle);
 			ig2.draw(circle);
 			
-			//on dessine le point sur la mosa•que qui contient les titres
+			//on dessine le point sur la mosaï¿½que qui contient les titres
 			ig2WithTitles.fill(circle);
 			ig2WithTitles.draw(circle);
 			
@@ -186,12 +186,15 @@ public class Generator {
 			//on ecrit les titres en noir
 			ig2WithTitles.setPaint(Color.black);
 			
-			// Si le nom du film est écrit dans le dernier quart droit de l'image, alors on l'écrit en bas à gauche du point.
-			int back =0;
-			if(ig2.getFontMetrics().stringWidth(filmTitle)>mosaicWidth-Math.floor(XPositionFilmOnMosaic*mosaicWidth)){
-				back = ig2.getFontMetrics().stringWidth(filmTitle);
+			// dÃ©calage si le titre du film dÃ©borde Ã  droite de l'image
+			int offsetWidth = 0, offsetHeight = 0;
+			if(ig2.getFontMetrics().stringWidth(filmTitle) > mosaicWidth-Math.floor(XPositionFilmOnMosaic*mosaicWidth)){
+				offsetWidth = ig2.getFontMetrics().stringWidth(filmTitle);
 			}
-			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth - back), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight)+fontSize);
+			if(fontSize > mosaicHeight-Math.floor(YPositionFilmOnMosaic*mosaicHeight)){
+				offsetHeight = fontSize;
+			}
+			ig2WithTitles.drawString(filmTitle, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth - offsetWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight)+fontSize - offsetHeight);
 		}
 
 		try {
@@ -210,22 +213,22 @@ public class Generator {
 		BufferedImage bi = new BufferedImage(image.getMosaicWidth(), image.getMosaicHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D ig2 = bi.createGraphics();
 
-		// insertion de l'image en haut à gauche
+		// insertion de l'image en haut ï¿½ gauche
 		java.awt.Image imageTL = Toolkit.getDefaultToolkit().createImage(biMosaicTL.getSource());
 		ig2.drawImage(imageTL,0,0,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
 		biMosaicTL=null;
 
-		// insertion de l'image en haut à droite
+		// insertion de l'image en haut ï¿½ droite
 		java.awt.Image imageTR = Toolkit.getDefaultToolkit().createImage(biMosaicTR.getSource());
 		ig2.drawImage(imageTR,image.getMosaicWidth()/2,0,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
 		biMosaicTR=null;
 
-		// insertion de l'image en bas à gauche
+		// insertion de l'image en bas ï¿½ gauche
 		java.awt.Image imageBL = Toolkit.getDefaultToolkit().createImage(biMosaicBL.getSource());
 		ig2.drawImage(imageBL,0,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
 		biMosaicBL=null;
 
-		// insertion de l'image en bas à droite
+		// insertion de l'image en bas ï¿½ droite
 		java.awt.Image imageBR = Toolkit.getDefaultToolkit().createImage(biMosaicBR.getSource());
 		ig2.drawImage(imageBR,image.getMosaicWidth()/2,image.getMosaicHeight()/2,image.getMosaicWidth()/2,image.getMosaicHeight()/2,null);
 		biMosaicBR=null;
