@@ -23,14 +23,14 @@ import javax.imageio.ImageIO;
 
 public class Generator {
 
-	public boolean generateLevels(String logFilePath, Image image){
+	public boolean generateLevels(String logFilePath, Image image, String[] keywords){
 		LogFile logFile = new LogFile();
 		Mosaic mosaic = logFile.logFileToMosaic(logFilePath);
-		recursiveLevelGenerator(image, mosaic);
+		recursiveLevelGenerator(image, mosaic, keywords);
 		return true;
 	}
 
-	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic){
+	public BufferedImage recursiveLevelGenerator(Image image, Mosaic mosaic, String[] keywords){
 
 		if(mosaic.getNumberOfFilms() > 50){
 
@@ -46,10 +46,10 @@ public class Generator {
 			mosaicBL.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),1,0));
 			mosaicBR.setMosaicPosition(new MosaicPosition(mosaic.getMosaicPosition(),1,1));
 
-			BufferedImage biMosaicTL =  recursiveLevelGenerator(image, mosaicTL);
-			BufferedImage biMosaicTR =  recursiveLevelGenerator(image, mosaicTR);
-			BufferedImage biMosaicBL =  recursiveLevelGenerator(image, mosaicBL);
-			BufferedImage biMosaicBR =  recursiveLevelGenerator(image, mosaicBR);
+			BufferedImage biMosaicTL =  recursiveLevelGenerator(image, mosaicTL, keywords);
+			BufferedImage biMosaicTR =  recursiveLevelGenerator(image, mosaicTR, keywords);
+			BufferedImage biMosaicBL =  recursiveLevelGenerator(image, mosaicBL, keywords);
+			BufferedImage biMosaicBR =  recursiveLevelGenerator(image, mosaicBR, keywords);
 
 			BufferedImage biMosaic = clip(image, biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			try {
@@ -64,7 +64,7 @@ public class Generator {
 		}
 
 		else{
-			BufferedImage biMosaic = generateMosaicImage(image, mosaic);
+			BufferedImage biMosaic = generateMosaicImage(image, mosaic, keywords, false);
 			return biMosaic;
 		}
 	}
@@ -127,9 +127,10 @@ public class Generator {
 
 	/** cette methode ecrit une mosaique de feuille sur le disque
 	 * @param image : pour les parametres de taille; mosaic : la mosaique qu'il faut ecrire sur le disque
+	 * @param keywords 
 	 * @return : le bufferImage
 	 */
-	public BufferedImage generateMosaicImage(Image image, Mosaic mosaic){
+	public BufferedImage generateMosaicImage(Image image, Mosaic mosaic, String[] keywords, boolean containsKeyword){
 
 		int mosaicHeight = image.getMosaicHeight();
 		int mosaicWidth = image.getMosaicWidth();
@@ -148,6 +149,15 @@ public class Generator {
 
 		ig2WithTitles.setFont(font);
 		ig2WithTitles.setPaint(Color.black);
+		
+		//contient le mot clé, on colore en rouge
+		if(containsKeyword){
+			ig2.setColor(Color.red);
+			ig2.fillRect(0, 0, mosaicWidth, mosaicHeight);
+			
+			ig2WithTitles.setColor(Color.red);
+			ig2WithTitles.fillRect(0, 0, mosaicWidth, mosaicHeight);
+		}
 
 		int radius = fontSize/5;
 
@@ -155,6 +165,25 @@ public class Generator {
 
 		while(it.hasNext()){
 			Film filmCurrent = it.next();
+			
+			ig2.setPaint(Color.black);
+			ig2WithTitles.setPaint(Color.black);
+			
+			//changement de couleur si le titre du film correspond a un des mots clé
+			for(int i = 0; i<keywords.length; i++){
+				
+				if(keywords[i]!="" && filmCurrent.getFilmTitle().contains(keywords[i])){
+					
+					//si on etait pas deja en train d'ecrire sur un fond rouge
+					if(!containsKeyword){
+						return generateMosaicImage(image, mosaic, keywords, true);
+					}
+					
+					ig2.setPaint(Color.white);
+					ig2WithTitles.setPaint(Color.white);
+				}
+				
+			}
 			
 			//on recherche son plus proche voisin
 			Set<Film> setFilmsLocal = new HashSet<Film>(mosaic.getFilms());
@@ -178,19 +207,15 @@ public class Generator {
 				double XPositionClosestFilmOnMosaic = closestFilm.getFilmX()/2;
 				double YPositionClosestFilmOnMosaic = 1-closestFilm.getFilmY()/2;
 				
-				//on dessine les fleches en noir
-				ig2WithTitles.setPaint(Color.black);
 				Draw.drawArrow(ig2WithTitles, (int)Math.floor(XPositionFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionFilmOnMosaic*mosaicHeight), (int)Math.floor(XPositionClosestFilmOnMosaic*mosaicWidth), (int)Math.floor(YPositionClosestFilmOnMosaic*mosaicHeight));
 			}
-			
-			//on ecrit les titres en noir
-			ig2WithTitles.setPaint(Color.black);
 			
 			// décalage si le titre du film déborde à droite de l'image
 			int offsetWidth = 0, offsetHeight = 0;
 			if(ig2.getFontMetrics().stringWidth(filmTitle) > mosaicWidth-Math.floor(XPositionFilmOnMosaic*mosaicWidth)){
 				offsetWidth = ig2.getFontMetrics().stringWidth(filmTitle);
 			}
+			// décalage si le titre du film déborde en bas de l'image
 			if(fontSize > mosaicHeight-Math.floor(YPositionFilmOnMosaic*mosaicHeight)){
 				offsetHeight = fontSize;
 			}

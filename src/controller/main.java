@@ -31,7 +31,12 @@ public class main {
 		
 		Image image = new Image(mosaicHeight, mosaicWidth);
 		
-		generator.generateLevels("./input/imdb_factorsColumns2.txt",image);
+		String keywords[] = new String[3];
+		keywords[0] = "action";
+		keywords[1] = "comedy";
+		keywords[2] = "drama";
+		
+		generator.generateLevels("./input/imdb_factorsColumns2.txt",image,keywords);
 	}
 
 }
