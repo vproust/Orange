@@ -1,7 +1,5 @@
 package controller;
 import model.Image;
-import model.Mosaic;
-import model.MosaicsToBeClipped;
 
 public class TestGenerator {
 

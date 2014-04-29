@@ -2,7 +2,6 @@ package controller;
 
 import java.util.HashSet;
 import java.util.Set;
-import controller.ClosestNeighboor;
 
 import model.Film;
 

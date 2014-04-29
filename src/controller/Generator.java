@@ -1,24 +1,26 @@
 package controller;
 
-import model.*;
-
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+
+import model.Film;
+import model.Image;
+import model.Mosaic;
+import model.MosaicClipPosition;
+import model.MosaicPosition;
+import model.MosaicsToBeClipped;
 
 
 public class Generator {
