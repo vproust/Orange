@@ -100,7 +100,8 @@ public class main {
 		if (config.success()) {
 		Image image = new Image(config.getInt("height"), config.getInt("width"));
 		
-		String keywords[] = config.getStringArray("keyword");
+		String keywords[] = config.getStringArray("keyWords");
+		System.out.println(keywords[0]);
 		generator.generateLevels("./input/filmGenerateurRandomXY100.txt",image,keywords);
 		}
 	}
