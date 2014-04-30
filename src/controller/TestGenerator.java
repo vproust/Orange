@@ -8,7 +8,10 @@ public class TestGenerator {
 		//on lance le timer
 		long startTime = System.currentTimeMillis();
 		
-		Image image = new Image(600, 1200);
+//		Image image = new Image(600, 1200, "./input/filmGenerateurRandomXY.txt", "./output/mosaic/");
+		Image image = new Image(600, 1200, "./input/filmGenerateurRandomXY100.txt", "./output/mosaic/");
+//		Image image = new Image(600, 1200, "./input/MovieLens2factors.txt", "./output/mosaic/");
+//		Image image = new Image(600, 1200, "./input/imdb_factorsColumns2.txt", "./output/mosaic/");
 		
 		String keywords[] = new String[3];
 		keywords[0] = "film14";
@@ -16,10 +19,7 @@ public class TestGenerator {
 		keywords[2] = "drama";
 		
 		Generator generator = new Generator();
-//		generator.generateLevels("./input/filmGenerateurRandomXY.txt",image,keywords);
-		generator.generateLevels("./input/filmGenerateurRandomXY100.txt",image,keywords);
-//  	generator.generateLevels("./input/MovieLens2factors.txt",image);
-//		generator.generateLevels("./input/imdb_factorsColumns2.txt",image,keywords);
+		generator.generateLevels(image,keywords);
   		
   		//on arrete le timer
   		long endTime   = System.currentTimeMillis();
