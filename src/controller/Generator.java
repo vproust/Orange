@@ -25,9 +25,9 @@ import model.MosaicsToBeClipped;
 
 public class Generator {
 
-	public boolean generateLevels(String logFilePath, Image image, String[] keywords){
+	public boolean generateLevels(Image image, String[] keywords){
 		LogFile logFile = new LogFile();
-		Mosaic mosaic = logFile.logFileToMosaic(logFilePath);
+		Mosaic mosaic = logFile.logFileToMosaic(image.getLogFilePath());
 		recursiveLevelGenerator(image, mosaic, keywords);
 		return true;
 	}
@@ -55,8 +55,8 @@ public class Generator {
 
 			BufferedImage biMosaic = clip(image, biMosaicTL,biMosaicTR,biMosaicBL,biMosaicBR);
 			try {
-				new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
-				ImageIO.write(biMosaic, "PNG", new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
+				new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
+				ImageIO.write(biMosaic, "PNG", new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
 				System.out.println("clip : "+mosaic.getMosaicName());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -225,8 +225,8 @@ public class Generator {
 		}
 
 		try {
-			new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
-			ImageIO.write(biWithTitles, "PNG", new File("./output/mosaic/"+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
+			new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
+			ImageIO.write(biWithTitles, "PNG", new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
 			System.out.println("leaf : "+mosaic.getMosaicName());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

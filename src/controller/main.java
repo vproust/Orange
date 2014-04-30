@@ -3,6 +3,7 @@
  */
 package controller;
 
+import java.io.File;
 import java.util.Scanner;
 
 import com.martiansoftware.jsap.*;
@@ -20,27 +21,11 @@ public class main {
 	 * @throws JSAPException 
 	 */
 	public static void main(String[] args) throws JSAPException {
-		
+
 		Generator generator = new Generator();
-		
-		/** int mosaicWidth;
-		int mosaicHeight;
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Veuillez saisir la largeur d'une mosaique en pixels :");
-		mosaicWidth = sc.nextInt();
-		System.out.println("Veuillez saisir la hauteur d'une mosaique en pixels :");
-		mosaicHeight = sc.nextInt();
-		
-		Image image = new Image(mosaicHeight, mosaicWidth);
-		
-		String keywords[] = new String[3];
-		keywords[0] = "action";
-		keywords[1] = "comedy";
-		keywords[2] = "drama";*/
-		
+
 		JSAP jsap = new JSAP();
-		FlaggedOption opt1 = new FlaggedOption("output")
+		FlaggedOption opt1 = new FlaggedOption("outputPath")
 		.setStringParser(JSAP.STRING_PARSER)
 		.setRequired(true) 
 		.setShortFlag('o') 
@@ -48,10 +33,10 @@ public class main {
 
 		jsap.registerParameter(opt1);
 
-		FlaggedOption opt2 = new FlaggedOption("input")
+		FlaggedOption opt2 = new FlaggedOption("logFilePath")
 		.setStringParser(JSAP.STRING_PARSER)
 		.setRequired(true) 
-		.setShortFlag('i') 
+		.setShortFlag('l') 
 		.setLongFlag(JSAP.NO_LONGFLAG);
 
 		jsap.registerParameter(opt2);
@@ -74,35 +59,37 @@ public class main {
 
 		jsap.registerParameter(opt4);
 
-		FlaggedOption opt5 = new FlaggedOption("keyWords")
+		FlaggedOption opt5 = new FlaggedOption("keywords")
 		.setStringParser(JSAP.STRING_PARSER)
 		.setRequired(false) 
-		.setShortFlag('k') 
+		.setShortFlag('k')
+		.setList(true)
+		.setListSeparator(';')
 		.setLongFlag(JSAP.NO_LONGFLAG);
 
 		jsap.registerParameter(opt5);
 
 		JSAPResult config = jsap.parse(args);
-		System.out.println(config.getString("input"));
-		System.out.println(config.getString("output"));
-		System.out.println(config.getInt("width"));
 
 		if (!config.success()) {
 			System.err.println();
 			System.err.println("Usage: java ");
-			System.err.println("                "
-					+ jsap.getUsage());
+			System.err.println("                "+ jsap.getUsage());
 			System.err.println();
 			// show full help as well
 			System.err.println(jsap.getHelp());
-
 		}
-		if (config.success()) {
-		Image image = new Image(config.getInt("height"), config.getInt("width"));
 		
-		String keywords[] = config.getStringArray("keyWords");
-		System.out.println(keywords[0]);
-		generator.generateLevels("./input/filmGenerateurRandomXY100.txt",image,keywords);
+		if (config.success()) {
+			
+			String logFilePath = config.getString("logFilePath");
+			String outputPath = config.getString("outputPath");
+			
+			String keywords[] = config.getStringArray("keywords");
+			
+			Image image = new Image(config.getInt("height"), config.getInt("width"), logFilePath, outputPath);
+			
+			generator.generateLevels(image,keywords);
 		}
 	}
 

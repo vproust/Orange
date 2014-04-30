@@ -8,6 +8,8 @@ public class Image {
 	private int numberOfColumns;
 	private int mosaicHeight;
 	private int mosaicWidth;
+	private String logFilePath;
+	private String outputPath;
 	
 	public Image(int numberOfRows, int numberOfColumns, int mosaicHeight, int mosaicWidth) {
 		super();
@@ -18,10 +20,12 @@ public class Image {
 		this.mosaics = new Mosaic[numberOfRows][numberOfColumns];
 	}
 	
-	public Image(int mosaicHeight, int mosaicWidth) {
+	public Image(int mosaicHeight, int mosaicWidth, String logFilePath, String outputPath) {
 		super();
 		this.mosaicHeight = mosaicHeight;
 		this.mosaicWidth = mosaicWidth;
+		this.logFilePath = logFilePath;
+		this.outputPath = outputPath;
 	}
 
 	public void addMosaic(Mosaic mosaic){
@@ -83,6 +87,34 @@ public class Image {
 
 	public Mosaic getMosaic(int i, int j) {
 		return this.mosaics[i][j];
+	}
+
+	/**
+	 * @return the logFilePath
+	 */
+	public String getLogFilePath() {
+		return logFilePath;
+	}
+
+	/**
+	 * @param logFilePath the logFilePath to set
+	 */
+	public void setLogFilePath(String logFilePath) {
+		this.logFilePath = logFilePath;
+	}
+
+	/**
+	 * @return the outputPath
+	 */
+	public String getOutputPath() {
+		return outputPath;
+	}
+
+	/**
+	 * @param outputPath the outputPath to set
+	 */
+	public void setOutputPath(String outputPath) {
+		this.outputPath = outputPath;
 	}
 	
 }
