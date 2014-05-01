@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>IMAGE LOG - Orange Labs</title>
+        <!-- Bootstrap -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../commons/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="../commons/css/bootstrap-responsive.css" rel="stylesheet">
+        <style>
+            .sidenav {
+                width: 240px;
+                margin: 30px 0pt 0pt;
+                padding: 0pt;
+                background-color: rgb(255,255,255);
+                border-radius: 6px 6px 6px 6px;
+                box-shadow: 0pt 1px 4px rgba(0,0,0,0.067);
+            }
+            .sidenav > li {
+                line-height: 20px;
+            }
+            .sidenav > li > a {
+                display: block;
+                margin: 0pt 0pt -1px;
+                padding: 8px 14px;
+                border: 1px solid rgb(229,229,229);
+            }
+            .sidenav .icon-chevron-right {
+                float: right;
+                margin-top: 2px;
+                margin-right: -6px;
+                opacity: 0.25;
+            }
+            .footer {
+                padding: 70px 0pt;
+                margin-top: 70px;
+                border-top: 1px solid rgb(229,229,229);
+                background-color: rgb(245,245,245);
+            }
+        </style>
+    </head>
+    <body data-spy="scroll" data-target=".navbar">
+        <div class="container-fluid">
+            <h1>IMAGE LOG - Manuel d'utilisation</h1>
+            <div class="row-fluid">
+                <div class="span3">
+                    <!--Sidebar content-->
+                    <ul class="nav nav-list sidenav affix-top" data-spy="affix" data-offset-top="50">
+                        <li><a href="#context">
+                                <i class="icon-chevron-right"></i>
+                                Générer une carte
+                            </a></li>
+                        <li><a href="#generation">
+                                <i class="icon-chevron-right"></i>
+                                Naviguer dans une carte 
+                            </a></li>
+                    </ul>
+                </div>
+                <div class="span7">
+                    
+                    <!-- SYNOPSIS -->
+                    <p class="lead">L'objectif de ce document est d'expliquer comment utiliser l'outil de génération et de visualisation d'une carte</p>
+                    
+                    <!-- SECTION 1 -->
+                    <a name="context"></a>
+                    <h2>Génération</h2>
+                    
+                    <h4>Lancement de l'outil</h4>
+                    
+                    <p>Le programme prend la forme d’un fichier .jar exécutable directement en ligne de commande avec des options ou avec un fichier de configuration.</p>
+                    
+                    <h4>Les options sont :</h4>
+
+
+<ul><li>Le chemin de sortie des images sur le disque</li>
+<li>Le chemin d’entrée du fichier de log</li>
+<li>La largeur d’une mosaïque (optionnel)</li>
+<li>La hauteur d’une mosaïque (optionnel)</li>
+<li>Des mots clés cibles (1 à 3) qui seront mis en surbrillance dans l’image (optionnel)</li>
+<li>Une mosaïque à approfondir si besoin pour la lecture (optionnel)</li></ul>
+
+<pre class="prettyprint">
+java imageLog.jar -o < outputPath > -l < logFilePath > [-w < width >] [-h < height >] [-k keywords1;keywords2;...;keywordsN ]
+</pre>
+                    
+                    <!-- SECTION 3 - KEY PHRASES -->
+                    <a name="visualisation"></a>
+                    <h2>Visualisation</h2>
+                    
+                    <p>Pour lancer l'outil de visualisation, <code> ./viz/index.html</code> à ouvir avec un navigateur web.</p>
+                    
+                    
+                   
+                    
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="span8">
+                    <dl>
+                        <dt>Ressources</dt>
+                        <dd>
+                            <ul>
+                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Livrable Unique du projet</a></li>
+                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Recherche des Plus Proches Voisins</a></li>
+                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Systèmes de recommandation (SR)</a></li>
+                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Factorisation de matrices pour les SR</a></li>
+                            </ul>
+                        </dd>
+                        <dt>Github</dt>
+                        <dd><a href="https://github.com/vproust/Orange">https://github.com/vproust/Orange</a></dd>
+                        
+                    </dl>
+                </div>
+                <div class="span3">
+                    <address>
+                        <strong>Fabien Richard</strong></br>
+                        <a href="mailto:fabien.richard@etu.univ-nantes.fr">fabien.richard@etu.univ-nantes.fr</a>
+                    </address>
+                    <address>
+                        <strong>Valentin Proust</strong></br>
+                        <a href="mailto:valentin.proust@etu.univ-nantes.fr">valentin.proust@etu.univ-nantes.fr</a>
+                    </address>
+                </div>
+            </div>
+        </footer>
+        <!-- JS -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="../commons/js/bootstrap.min.js"></script>
+    </body>
+</html>
+
+
