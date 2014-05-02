@@ -52,16 +52,7 @@ function zoom_in(element){
     }
     
     $("#image_img").animate({height: "200%"}, 100, function(){
-        $("#image_img").fadeOut(1,function(){
-            $("#image_img").css('height',"100%");
-            $("#image_img").attr('src','../output/mosaic/'+tileZ+'/'+tileX+'/'+tileY+'.png');
-            $("#image_img").css('bottom','inherit');
-            $("#image_img").css('top','inherit');
-            $("#image_img").css('left','inherit');
-            $("#image_img").css('right','inherit');
-            $("#image_img").fadeIn(1);
-        });
-        
+        $("#image_img").attr('src','../output/mosaic/'+tileZ+'/'+tileX+'/'+tileY+'.png');
     });
     //fin de l'animation de zoom
     
@@ -72,6 +63,14 @@ function zoom_in(element){
     set_navigator(tileZ, tileX, tileY);
     
     var sisterUrl = begining_str+'/'+sisterTileZ+'/'+sisterTileX+'/'+sisterTileY+'.png'; 
+}
+
+function on_image_loaded(){
+    $("#image_img").css('height',"100%");
+    $("#image_img").css('bottom','inherit');
+    $("#image_img").css('top','inherit');
+    $("#image_img").css('left','inherit');
+    $("#image_img").css('right','inherit');
 }
 
 function zoom_out(){
