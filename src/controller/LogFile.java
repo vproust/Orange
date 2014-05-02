@@ -32,9 +32,9 @@ public class LogFile {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
-				Film film = logFileLineToFilmRandomXY(sCurrentLine);
+//				Film film = logFileLineToFilmRandomXY(sCurrentLine);
 				//Film film = logFileLineToFilmMovieLens(sCurrentLine);
-//				Film film = logFileLineToFilmImdb(sCurrentLine);
+				Film film = logFileLineToFilmImdb(sCurrentLine);
 				mosaic.addFilm(film);
 
 			}

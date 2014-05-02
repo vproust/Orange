@@ -14,11 +14,11 @@ public class MosaicsToBeClipped {
 	private Mosaic mosaicBL;
 	private Mosaic mosaicBR;
 	
-	public MosaicsToBeClipped(MosaicPosition mosaicMerePosition){
-		this.mosaicBL = new Mosaic(new MosaicPosition(mosaicMerePosition,0,0), new MosaicClipPosition(0,0));
-		this.mosaicBR = new Mosaic(new MosaicPosition(mosaicMerePosition,0,1), new MosaicClipPosition(0,1));
-		this.mosaicTL = new Mosaic(new MosaicPosition(mosaicMerePosition,1,0), new MosaicClipPosition(1,0));
-		this.mosaicTR = new Mosaic(new MosaicPosition(mosaicMerePosition,1,1), new MosaicClipPosition(1,1));
+	public MosaicsToBeClipped(MosaicPosition mosaicMotherPosition){
+		this.mosaicBL = new Mosaic(new MosaicPosition(mosaicMotherPosition,0,0), new MosaicClipPosition(0,0));
+		this.mosaicBR = new Mosaic(new MosaicPosition(mosaicMotherPosition,0,1), new MosaicClipPosition(0,1));
+		this.mosaicTL = new Mosaic(new MosaicPosition(mosaicMotherPosition,1,0), new MosaicClipPosition(1,0));
+		this.mosaicTR = new Mosaic(new MosaicPosition(mosaicMotherPosition,1,1), new MosaicClipPosition(1,1));
 	}
 	
 	public Mosaic getMosaicTL() {
