@@ -1,5 +1,5 @@
 var parentTile = [];
-var initTile = '../output/mosaic/0/0/0.png';
+var initTile = './mosaic/0/0/0.png';
 
 window.onload=function(){
     init_zoom_zone_size();
@@ -52,7 +52,7 @@ function zoom_in(element){
     }
     
     $("#image_img").animate({height: "200%"}, 100, function(){
-        $("#image_img").attr('src','../output/mosaic/'+tileZ+'/'+tileX+'/'+tileY+'.png');
+        $("#image_img").attr('src','./mosaic/'+tileZ+'/'+tileX+'/'+tileY+'.png');
     });
     //fin de l'animation de zoom
     
