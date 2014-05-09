@@ -16,8 +16,9 @@ public class LogFile {
 	 * @param logFilePath Le chemin vers le r�pertoire du fichier contenant les noms de films.
 	 * 
 	 * @return filmSet Le conteneur des objets "film"
+	 * @throws IOException 
 	 **/
-	public Mosaic logFileToMosaic(String logFilePath){
+	public Mosaic logFileToMosaic(String logFilePath) throws IOException{
 
 		Mosaic mosaic = new Mosaic(new MosaicPosition(0,0,0), new MosaicClipPosition(0,0));
 
@@ -27,21 +28,26 @@ public class LogFile {
 
 			//variables pour la ligne courante
 			String sCurrentLine;
+			int iCurrentLine = 1;
 
 			br = new BufferedReader(new FileReader(logFilePath));
 
 			while ((sCurrentLine = br.readLine()) != null) {
 
-//				Film film = logFileLineToFilmRandomXY(sCurrentLine);
-				//Film film = logFileLineToFilmMovieLens(sCurrentLine);
-				Film film = logFileLineToFilmImdb(sCurrentLine);
-				mosaic.addFilm(film);
-
+				Film film;
+				try {
+					film = logFileLineToFilmRandomXY(sCurrentLine);
+//					film = logFileLineToFilmMovieLens(sCurrentLine);
+//					film = logFileLineToFilmImdb(sCurrentLine);
+					mosaic.addFilm(film);
+				} catch (NumberFormatException e) {
+					System.err.format("Error trying to read line %d in %s\n", iCurrentLine,logFilePath);
+				}
+				iCurrentLine++;
 			}
 
 		} catch (IOException e) {
-			System.err.format("Exception occurred trying to read '%s'.", logFilePath);
-			e.printStackTrace();
+			throw new IOException();
 		} finally {
 			try {
 				if (br != null)br.close();
@@ -73,7 +79,7 @@ public class LogFile {
 		return film;
 	}
 
-	public Film logFileLineToFilmRandomXY(String line){
+	public Film logFileLineToFilmRandomXY(String line) throws NumberFormatException{
 
 		String[] words;
 		String filmTitle;
@@ -82,8 +88,12 @@ public class LogFile {
 		words = line.split("\t");
 
 		filmTitle = words[0];
-		filmX = Float.parseFloat(words[1])/100+1;
-		filmY = Float.parseFloat(words[2])/100+1;
+		try {
+			filmX = Float.parseFloat(words[1])/100+1;
+			filmY = Float.parseFloat(words[2])/100+1;
+		} catch (NumberFormatException e) {
+			throw new NumberFormatException();
+		}
 
 		Film film = new Film(filmTitle,filmX,filmY);
 

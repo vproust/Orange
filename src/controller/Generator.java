@@ -38,11 +38,16 @@ public class Generator {
 		/** on instancie le liseur de logs*/
 		LogFile logFile = new LogFile();
 		/** on remplit la mosaique avec les films du log */
-		Mosaic mosaic = logFile.logFileToMosaic(image.getLogFilePath());
-		/** on supprime le dossier output et son contenu s'il existe déjà */
-		deleteDir(new File(image.getOutputPath()));
-		/** on lance la fonction recursive*/
-		recursiveLevelGenerator(image, mosaic, keywords);
+		Mosaic mosaic;
+		try {
+			mosaic = logFile.logFileToMosaic(image.getLogFilePath());
+			/** on supprime le dossier output et son contenu s'il existe déjà */
+			deleteDir(new File(image.getOutputPath()));
+			/** on lance la fonction recursive*/
+			recursiveLevelGenerator(image, mosaic, keywords);
+		} catch (IOException e) {
+			System.err.format("Error trying to read '%s'. Check file path.\n", image.getLogFilePath());
+		}
 		return true;
 	}
 
@@ -88,7 +93,7 @@ public class Generator {
 				new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
 				/** On écrit l'image sur le disque */
 				ImageIO.write(biMosaic, "PNG", new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
-				//System.out.println("clip : "+mosaic.getMosaicName());
+				System.out.println("clip : "+mosaic.getMosaicName());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}			
@@ -277,7 +282,7 @@ public class Generator {
 		try {
 			new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()).mkdirs();
 			ImageIO.write(biWithTitles, "PNG", new File(image.getOutputPath()+mosaic.getMosaicPosition().getZoomLevel()+"/"+mosaic.getMosaicPosition().getRowNumber()+"/"+mosaic.getMosaicPosition().getColumnNumber()+".png"));
-			//System.out.println("leaf : "+mosaic.getMosaicName());
+			System.out.println("leaf : "+mosaic.getMosaicName());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

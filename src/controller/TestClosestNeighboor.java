@@ -17,8 +17,7 @@ public class TestClosestNeighboor {
 		/**films.add(film2);
 		films.add(film3);
 		films.add(film4);*/
-		ClosestNeighboor cn = new ClosestNeighboor();
-		Film film = cn.closestNeighboor(films,film1);
+		Film film = ClosestNeighboor.closestNeighboor(films,film1);
 		System.out.println(film.getFilmTitle());
 		
 	}

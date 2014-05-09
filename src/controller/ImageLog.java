@@ -3,9 +3,6 @@
  */
 package controller;
 
-import java.io.File;
-import java.util.Scanner;
-
 import com.martiansoftware.jsap.*;
 
 import model.Image;
@@ -14,7 +11,7 @@ import model.Image;
  * @author richfab-vproust
  *
  */
-public class main {
+public class ImageLog {
 
 	/**
 	 * Appel principal du programme de génération des mosaiques

@@ -1,8 +1,5 @@
 package controller;
 
-import java.io.File;
-import java.util.Scanner;
-
 import model.Image;
 
 
