@@ -36,9 +36,9 @@ public class LogFile {
 
 				Film film;
 				try {
-					film = logFileLineToFilmRandomXY(sCurrentLine);
-//					film = logFileLineToFilmMovieLens(sCurrentLine);
-//					film = logFileLineToFilmImdb(sCurrentLine);
+					//					film = logFileLineToFilmRandomXY(sCurrentLine);
+					//					film = logFileLineToFilmMovieLens(sCurrentLine);
+					film = logFileLineToFilmImdb(sCurrentLine);
 					mosaic.addFilm(film);
 				} catch (NumberFormatException e) {
 					System.err.format("Error trying to read line %d in %s\n", iCurrentLine,logFilePath);
@@ -59,7 +59,7 @@ public class LogFile {
 		return mosaic;
 	}
 
-	public Film logFileLineToFilmMovieLens(String line){
+	public Film logFileLineToFilmMovieLens(String line) throws NumberFormatException{
 
 		String[] words, coords;
 		String filmTitle;
@@ -70,9 +70,12 @@ public class LogFile {
 		filmTitle = words[0];
 
 		coords = words[1].split(",");
-
-		filmX = Float.parseFloat(coords[0])+1;
-		filmY = Float.parseFloat(coords[1])+1;
+		try {
+			filmX = Float.parseFloat(coords[0])+1;
+			filmY = Float.parseFloat(coords[1])+1;
+		} catch (NumberFormatException e) {
+			throw new NumberFormatException();
+		}
 
 		Film film = new Film(filmTitle,filmX,filmY);
 
@@ -100,7 +103,7 @@ public class LogFile {
 		return film;
 	}
 
-	public Film logFileLineToFilmImdb(String line){
+	public Film logFileLineToFilmImdb(String line) throws NumberFormatException{
 
 		String[] words;
 		String filmTitle;
@@ -109,8 +112,12 @@ public class LogFile {
 		words = line.split(";");
 
 		filmTitle = words[0];
-		filmX = Float.parseFloat(words[1])+1;
-		filmY = Float.parseFloat(words[2])+1;
+		try {
+			filmX = Float.parseFloat(words[1])+1;
+			filmY = Float.parseFloat(words[2])+1;
+		} catch (NumberFormatException e) {
+			throw new NumberFormatException();
+		}
 
 		Film film = new Film(filmTitle,filmX,filmY);
 
