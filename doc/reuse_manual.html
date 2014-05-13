@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>IMAGE LOG - Manuel de réutilisation</title>
+        <!-- Bootstrap -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./commons/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="./commons/css/bootstrap-responsive.css" rel="stylesheet">
+        <style>
+            .sidenav {
+                width: 240px;
+                margin: 30px 0pt 0pt;
+                padding: 0pt;
+                background-color: rgb(255,255,255);
+                border-radius: 6px 6px 6px 6px;
+                box-shadow: 0pt 1px 4px rgba(0,0,0,0.067);
+            }
+            .sidenav > li {
+                line-height: 20px;
+            }
+            .sidenav > li > a {
+                display: block;
+                margin: 0pt 0pt -1px;
+                padding: 8px 14px;
+                border: 1px solid rgb(229,229,229);
+            }
+            .sidenav .icon-chevron-right {
+                float: right;
+                margin-top: 2px;
+                margin-right: -6px;
+                opacity: 0.25;
+            }
+            .footer {
+                padding: 70px 0pt;
+                margin-top: 70px;
+                border-top: 1px solid rgb(229,229,229);
+                background-color: rgb(245,245,245);
+            }
+        </style>
+    </head>
+    <body data-spy="scroll" data-target=".navbar">
+        <div class="container-fluid">
+            <h1>IMAGE LOG - Manuel de réutilisation</h1>
+            <div class="row-fluid">
+                <div class="span3">
+                    <!--Sidebar content-->
+                    <ul class="nav nav-list sidenav affix-top" data-spy="affix" data-offset-top="50">
+                        <li><a href="#context">
+                                <i class="icon-chevron-right"></i>
+                                Contexte
+                            </a></li>
+                        <li><a href="#bibliographie">
+                                <i class="icon-chevron-right"></i>
+                                Bibliographie
+                            </a></li>
+                        <li><a href="#generation">
+                                <i class="icon-chevron-right"></i>
+                                Génération
+                            </a></li>
+                        <li><a href="#visualization">
+                                <i class="icon-chevron-right"></i>
+                                Visualisation
+                            </a></li>
+                    </ul>
+                </div>
+                <div class="span7">
+                    
+                    <!-- SYNOPSIS -->
+                    <p class="lead">L'objectif de ce document est d'expliquer le cheminement qui a abouti à cet outil de génération de mosaïques.</p>
+                    
+                    <!-- SECTION 1 -->
+                    <a name="context"></a>
+                    <h2>Contexte</h2>
+                    
+                    <h4>Orange Labs</h4>
+                    
+                    <p>Orange Labs est la division recherche et développement du groupe Orange. Orange est une entreprise française de télécommunications. Elle emploie près de 172 000 personnes, dont 105 000 en France, et sert près de 226 millions de clients dans le monde.</p>
+                    
+                    <p>Fin 2012, Orange détient 7 493 brevets au niveau mondial, dont 291 déposés sur les 12 derniers mois.</p>
+                    
+                    <h4>Image Log</h4>
+                    
+                    <p>Orange souhaite améliorer son système de recommandation automatique, en particulier pour son service de vidéo à la demande. Le principe des systèmes de recommandation vidéo est de suggérer aux utilisateurs les films susceptibles de les intéresser le plus, à partir de fichiers regroupant les achats des gens ou leurs notations sur les films visionnés. Pour cela, Orange utilise des méthodes de factorisation de matrices complexes et confidentielles. Ces algorithmes fournissent pour chaque film une coordonnée en deux dimensions. </p>
+                    
+                    <p>Pour le moment quatre personnes travaillent sur la factorisation de matrice à Orange Labs. Ce projet a débuté au printemps 2013, suite aux travaux de thèse de Franck Meyer.</p>
+                    
+                    <p>Le problème est de réussir à visualiser en deux dimensions sur une image le résultat de ces factorisations. En effet, le nombre de films étant très grand, il est impossible de générer une image de telles dimensions. La solution consiste donc à faire du “clipping”, c’est à dire découper la grande image en sous images plus petites.</p>
+                    
+                    <p class="text-warning">Image Log est une application qui permet, à partir de fichier de log de films projetés en 2 dimensions, de générer une image et de naviguer dedans à l'aide d'un navigateur.</p>
+
+                     <a name="bibliographie"></a>
+                     <h2>Bibliographie</h2>
+
+                     <p>Le début du projet a été précédé d'une phase de bibliographie qui a permis de trouver des solutions aux enjeux scientifiques et techniques.</p>
+                     <p>Les bibliographies que nous avons réalisées sont les suivantes :</p>
+                     <ul><li><a href="./ressources/Systemes de recommandation.pdf">Systèmes de recommandation (SR)</a></li>
+                         <li><a href="./ressources/Factorisation de matrices pour les systèmes de recommandation.pdf">Factorisation de matrices pour les SR</a></li>
+                        <li><a href="./ressources/Java2D.pdf">Java2D</a></li>
+                        <li><a href="./ressources/Recherche des plus proches voisins.pdf">Recherche des plus proches voisins</a></li>
+                     </ul>
+
+                    
+                    <!-- SECTION 3 - KEY PHRASES -->
+                    <a name="generation"></a>
+                    <h2>Génération</h2>
+                    
+                    <h4>Fichier d'entrée</h4>
+                        <p>Le format de fichier pris en entrée par l'outil de génération de la carte est le suivant :<p>
+                            <pre class="prettyprint">
+Film1;0.08902608213156381;0.03916623985889557;</n>
+Film2;0.3290180179434357;0.6893047105861582;</n>
+Film3;0.03509671028959916;0.12465257434982985;</n>
+Film4;-0.03948909407570134;0.13063195154147483;</n>
+Film5;0.04754521376283988;0.9541122168699364;</pre>
+
+                    
+                    <h4>Architecture de l'outil :</h4>
+                    
+                    <ul><li>Nous avons décomposé le code de notre outil en Modèle-Controlleur</li>
+                    <li>Nous avons choisi une méthode de génération des mosaiques récursive</li>
+                    <li>Les mosaiques sont notées selon la règle suivante mosaic[ZoomLevel].[Rang].[Colonne]</li></ul>
+                    <img src="./ressources/recursivite.png"></img>
+                    <ol><li>On génère mosaic2.0.0, mosaic2.0.1, mosaic2.1.0 et mosaic2.1.1 (en rouge). </li>
+<li>Puis elles sont assemblées pour former mosaic1.0.0 (en rouge). </li>
+<li>C’est ensuite au tour de mosaic2.0.2, mosaic2.0.3, mosaic2.1.2 et mosaic2.1.3 d’être générées</li>
+<li>Puis assemblées pour former mosaic1.0.1</li>
+<li>Et ainsi de suite</li></ol>
+    
+    <p><strong>Pour plus d'information concernant la modélisation architecturale de l'outil, vous pouvez consulter le <a href="./ressources/livrableUnique.pdf">Livrable Unique</a> du projet</strong></p>
+
+                    
+                    <a name="visualization"></a>
+                    <h2>Visualisation</h2>
+                    <p>La partie visualisation n'utilise que du code HTML et Javascript. La seule librairie utilisée est jquery pour réduire le code Javascript.</p>
+                    <p>Les mosaïques doivent être placées dans le dossier <code>./viz/mosaic/</code></p>
+
+		
+                    
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="span8">
+                    <dl>
+                        <dt>Ressources</dt>
+                        <dd>
+                            <ul>
+                                <li><a href="./ressources/livrableUnique.pdf">Livrable Unique du projet</a></li>
+                                <li><a href="./get_started.html">Guide de démarrage</a></li>
+                                <li><a href="./user_manual.html">Manuel d'utilisation</a></li>
+                            </ul>
+                        </dd>
+                        <dt>Github</dt>
+                        <dd><a href="https://github.com/vproust/Orange">https://github.com/vproust/Orange</a></dd>
+                        
+                    </dl>
+                </div>
+                <div class="span3">
+                    <address>
+                        <strong>Franck Meyer - OrangeLabs</strong></br>
+                        <a href="mailto:franck.meyer@orange.com">franck.meyer@orange.com</a>
+                    </address>
+                    <address>
+                        <strong>Fabien Richard - PolytechNantes</strong></br>
+                        <a href="mailto:fabien.richard@etu.univ-nantes.fr">fabien.richard@etu.univ-nantes.fr</a>
+                    </address>
+                    <address>
+                        <strong>Valentin Proust - PolytechNantes</strong></br>
+                        <a href="mailto:valentin.proust@etu.univ-nantes.fr">valentin.proust@etu.univ-nantes.fr</a>
+                    </address>
+                </div>
+                <div class="span12">    
+                <h5> Ce projet a été réalisé par des étudiants en informatique à Polytech Nantes en collaboration avec une OrangeLabs en 2013/14.</h5>
+                </div>
+            </div>
+        </footer>
+        <!-- JS -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="./commons/js/bootstrap.min.js"></script>
+    </body>
+</html>
+
+

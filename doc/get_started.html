@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>IMAGE LOG - Orange Labs</title>
+        <!-- Bootstrap -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./commons/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="./commons/css/bootstrap-responsive.css" rel="stylesheet">
+        <style>
+            .sidenav {
+                width: 240px;
+                margin: 30px 0pt 0pt;
+                padding: 0pt;
+                background-color: rgb(255,255,255);
+                border-radius: 6px 6px 6px 6px;
+                box-shadow: 0pt 1px 4px rgba(0,0,0,0.067);
+            }
+            .sidenav > li {
+                line-height: 20px;
+            }
+            .sidenav > li > a {
+                display: block;
+                margin: 0pt 0pt -1px;
+                padding: 8px 14px;
+                border: 1px solid rgb(229,229,229);
+            }
+            .sidenav .icon-chevron-right {
+                float: right;
+                margin-top: 2px;
+                margin-right: -6px;
+                opacity: 0.25;
+            }
+            .footer {
+                padding: 70px 0pt;
+                margin-top: 70px;
+                border-top: 1px solid rgb(229,229,229);
+                background-color: rgb(245,245,245);
+            }
+        </style>
+    </head>
+    <body data-spy="scroll" data-target=".navbar">
+        <div class="container-fluid">
+            <h1>IMAGE LOG - Get Started</h1>
+            <div class="row-fluid">
+                <div class="span3">
+                    <!--Sidebar content-->
+                    <ul class="nav nav-list sidenav affix-top" data-spy="affix" data-offset-top="50">
+                        <li><a href="#generation">
+                                <i class="icon-chevron-right"></i>
+                                Générer une carte
+                            </a></li>
+                        <li><a href="#visualisation">
+                                <i class="icon-chevron-right"></i>
+                                Naviguer dans une carte 
+                            </a></li>
+                    </ul>
+                </div>
+                <div class="span7">
+                    
+                    <!-- SYNOPSIS -->
+                    <p class="lead">L'objectif de ce document est de proposer un guide de démarrage pour la génération et de visualisation d'une carte</p>
+                    
+                    <!-- SECTION 1 -->
+                    <a name="context"></a>
+                    <h2>Génération</h2>
+                    
+                    <h4>1. Extraction de l'outil</h4>
+                    
+                    <p>L'archive <code>IMAGELOG.zip</code> contient les éléments suivants :</p>
+                    
+                    <pre class="prettyprint">
+imagelog.jar</n>
+input/</n>
+    imdb_mini.txt</n>
+doc/</n>
+    ressources/</n>
+    commons/</n>
+    get_started.html</n>
+    user_manual.html</n>
+    reuse_manual.html</n>
+viz/</n>
+    index.html</n>
+    jquery-1.11.0.min.js</n>
+    style.css</n>
+    viz.js</n>
+    mosaic/</pre>
+		<p class="text-warning">Le fichier <code>imagelog.jar</code> lance la génération</p>
+		<p class="text-warning">Le dossier <code>input</code> contient les fichiers de log</p>
+		<p class="text-warning">Le dossier <code>doc</code> contient la documentation</p>
+		<p class="text-warning">Le fichier <code>viz/index.html</code> lance la visualisation</p>
+                    <h4>2. Lancement de la génération</h4>
+                    
+                    <p>Ouvrir un Terminal. Se placer dans le dossier extrait et exécuter la ligne de commande suivante :</p>
+                    
+                    <pre class="prettyprint">$java -jar imagelog.jar -l ./input/imdb_mini.txt -o ./viz/mosaic/</pre>
+                    
+                    <p class="text-warning">Cette commande lancera la génération à partir du fichier de log imdb_mini.txt et enregistrera les mosaïques dans le dossier <code>./viz/mosaic/</code></p>
+                    
+                    <!-- SECTION 3 - KEY PHRASES -->
+                    <a name="visualisation"></a>
+                    
+                    <h2>3. Visualisation</h2>
+                    
+                    <p>Une fois la génération terminée, ouvrir le fichier <code> ./viz/index.html</code> avec un navigateur web.</p>
+                    
+                    <p class="text-warning">Une fenêtre s'ouvre. Zoomez sur une zone en cliquant dessus. Dezoomez en cliquant sur le bouton ZoomOut et revenez au zoom initial en cliquant sur Reset.</p>
+                   
+                    
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="span8">
+                    <dl>
+                        <dt>Ressources</dt>
+                        <dd>
+                            <ul>
+                                <li><a href="./ressources/livrableUnique.pdf">Livrable Unique du projet</a></li>
+                                <li><a href="./user_manual.html">Manuel d'utilisation</a></li>
+                                <li><a href="./reuse_manual.html">Manuel de réutilisation</a></li>
+                            </ul>
+                        </dd>
+                        <dt>Github</dt>
+                        <dd><a href="https://github.com/vproust/Orange">https://github.com/vproust/Orange</a></dd>
+                        
+                    </dl>
+                </div>
+                <div class="span3">
+                    <address>
+                        <strong>Franck Meyer - OrangeLabs</strong></br>
+                        <a href="mailto:franck.meyer@orange.com">franck.meyer@orange.com</a>
+                    </address>
+                    <address>
+                        <strong>Fabien Richard - PolytechNantes</strong></br>
+                        <a href="mailto:fabien.richard@etu.univ-nantes.fr">fabien.richard@etu.univ-nantes.fr</a>
+                    </address>
+                    <address>
+                        <strong>Valentin Proust - PolytechNantes</strong></br>
+                        <a href="mailto:valentin.proust@etu.univ-nantes.fr">valentin.proust@etu.univ-nantes.fr</a>
+                    </address>
+                </div>
+                <div class="span12">    
+                <h5> Ce projet a été réalisé par des étudiants en informatique à Polytech Nantes en collaboration avec une OrangeLabs en 2013/14.</h5>
+                </div>
+            </div>
+
+        </footer>
+        <!-- JS -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="./commons/js/bootstrap.min.js"></script>
+    </body>
+</html>
+
+
