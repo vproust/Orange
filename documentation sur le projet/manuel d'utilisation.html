@@ -82,6 +82,12 @@
 <pre class="prettyprint">
 java imageLog.jar -o < outputPath > -l < logFilePath > [-w < width >] [-h < height >] [-k keywords1;keywords2;...;keywordsN ]
 </pre>
+
+<p class="text-warning">Attention à mettre des antislash devant les espaces des noms de films. Exemple : Toy\ Story\ 2</p>
+<h4>Exemple d'utilisation :</h4>
+<pre class="prettyprint">
+java imageLog.jar -o ./output -l ./input/imdb_factorsColumns2.txt
+</pre>
                     
                     <!-- SECTION 3 - KEY PHRASES -->
                     <a name="visualisation"></a>
@@ -102,10 +108,8 @@ java imageLog.jar -o < outputPath > -l < logFilePath > [-w < width >] [-h < heig
                         <dt>Ressources</dt>
                         <dd>
                             <ul>
-                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Livrable Unique du projet</a></li>
-                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Recherche des Plus Proches Voisins</a></li>
-                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Systèmes de recommandation (SR)</a></li>
-                                <li><a href="http://nltk.googlecode.com/svn/trunk/doc/book/ch05.html">Factorisation de matrices pour les SR</a></li>
+                                <li><a href="./ressources/livrableUnique.pdf">Livrable Unique du projet</a></li>
+                                <li><a href="./manuel%20de%20r%C3%A9utilisation.html">Manuel de réutilisation</a></li>
                             </ul>
                         </dd>
                         <dt>Github</dt>
@@ -115,15 +119,23 @@ java imageLog.jar -o < outputPath > -l < logFilePath > [-w < width >] [-h < heig
                 </div>
                 <div class="span3">
                     <address>
-                        <strong>Fabien Richard</strong></br>
+                        <strong>Franck Meyer - OrangeLabs</strong></br>
+                        <a href="mailto:fabien.richard@etu.univ-nantes.fr">franck.meyer@orange.com</a>
+                    </address>
+                    <address>
+                        <strong>Fabien Richard - PolytechNantes</strong></br>
                         <a href="mailto:fabien.richard@etu.univ-nantes.fr">fabien.richard@etu.univ-nantes.fr</a>
                     </address>
                     <address>
-                        <strong>Valentin Proust</strong></br>
+                        <strong>Valentin Proust - PolytechNantes</strong></br>
                         <a href="mailto:valentin.proust@etu.univ-nantes.fr">valentin.proust@etu.univ-nantes.fr</a>
                     </address>
                 </div>
+                <div class="span12">    
+                <h5> Ce projet a été réalisé lors d'un projet d'étudiants en informatique à Polytech Nantes en collaboration avec une OrangeLabs</h5>
+                </div>
             </div>
+
         </footer>
         <!-- JS -->
         <script src="http://code.jquery.com/jquery-latest.js"></script>
