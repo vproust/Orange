@@ -37,7 +37,7 @@ public class LogFile {
 				Film film;
 				try {
 					//					film = logFileLineToFilmRandomXY(sCurrentLine);
-					//					film = logFileLineToFilmMovieLens(sCurrentLine);
+//										film = logFileLineToFilmMovieLens(sCurrentLine);
 					film = logFileLineToFilmImdb(sCurrentLine);
 					mosaic.addFilm(film);
 				} catch (NumberFormatException e) {
